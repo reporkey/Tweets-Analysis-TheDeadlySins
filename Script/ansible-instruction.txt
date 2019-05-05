@@ -1,0 +1,216 @@
+
+To make roles run more than once, there are two options:
+1. Pass different parameters in each role definition.
+2. Add allow_duplicates: true to the meta/main.yml file for the role.
+Always remember that when using allow_duplicates: true, it needs to be in the dependent role’s meta/main.yml, not the parent.
+
+
+Role dependencies:Role dependencies are stored in the meta/main.yml file contained within the role directory
+Role dependencies are always executed before the role that includes them, and may be recursive. Dependencies also follow the duplication rules specified above. If another role also lists it as a dependency, it will not be run again based on the same rules given above.
+
+###########################
+ansible allows Jinja2 loops and conditionals in templates, but in playbooks, we do not use them. Ansible playbooks are pure machine-parseable YAML. 
+##########################
+Facts: 
+Facts are information derived from speaking with your remote systems. You can find a complete set under the ansible_facts variable
+An example of this might be the IP address of the remote host, or what the operating system is.
+##########################
+Another major use of variables is running a command and registering the result of that command as a variable.
+
+就比如 instance 里面的code, 取得到的结果当做 os_instance
+##########################
+A frequently used idiom is walking a group to find all IP addresses in that group.
+
+{% for host in groups['app_servers'] %}
+   {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}
+{% endfor %}
+##########################
+You can do this by using an external variables file, or files, just like this:
+
+---
+
+- hosts: all
+  remote_user: root
+  vars:
+    favcolor: blue
+  vars_files:
+    - /vars/external_vars.yml
+
+  tasks:
+
+  - name: this is just a placeholder
+    command: /bin/echo foo
+This removes the risk of sharing sensitive data with others when sharing your playbook source with them.
+
+
+#############################
+基础ansible 很有用 
+https://stackoverflow.com/questions/47159193/why-does-ansible-show-error-no-action-detected-in-task-error
+
+###################
+如果只想跑一部分代码: 
+https://stackoverflow.com/questions/23945201/how-to-run-only-one-task-in-ansible-playbook
+
+######################
+关于 filter的使用: "{{var | filter}}"
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#filters-for-formatting-data
+
+#######################
+关于debug: 
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html
+The syntax for using a jinja test is as follows:
+
+variable is test_name
+Such as:
+
+result is failed
+######################
+https://docs.ansible.com/ansible/latest/modules/os_image_facts_module.html
+关于拿到image的信息: 
+- name: Gather facts about a previously created image named image1
+  os_image_facts:
+    auth:
+      auth_url: https://identity.example.com
+      username: user
+      password: password
+      project_name: someproject
+    image: image1
+
+- name: Show openstack facts
+  debug:
+    var: openstack_image
+
+# Show all available Openstack images
+- name: Retrieve all available Openstack images
+  os_image_facts:
+
+- name: Show images
+  debug:
+    var: openstack_image
+##########################
+Commonly used Facts 
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html
+##########################
+Register Variables 
+
+不要忘了还有stdout.
+Loop can be used when the variable is put into a list. 
+- name: registered variable usage as a loop list
+  hosts: all
+  tasks:
+
+    - name: retrieve the list of home directories
+      command: ls /home
+      register: home_dirs
+
+    - name: add home dirs to the backup spooler
+      file:
+        path: /mnt/bkspool/{{ item }}
+        src: /home/{{ item }}
+        state: link
+      loop: "{{ home_dirs.stdout_lines }}"
+      # same as loop: "{{ home_dirs.stdout.split() }}"
+############################
+- name: check registered variable for emptiness
+  hosts: all
+
+  tasks:
+
+      - name: list contents of directory
+        command: ls mydir
+        register: contents
+
+      - name: check contents for emptiness
+        debug:
+          msg: "Directory is empty"
+        when: contents.stdout == ""
+##############################
+一篇很好的文章, 关于 facts 是如何collect的. 
+
+
+
+##########
+Images are similar to VM templates of vmware, wherein OS is pre-installed & you can create instances out of it. Even if you do not assign a volume to an image they can boot and work as the image by default has some disk assigned. By assigning volume (block storage) to an image you get additional drive on the VM where you can have your structural data. Even if you delete the VM, the data on volume is persistent. You can attach the volume to another VM just like an USB drive.\n
+
+# Install docker on ubuntu
+\n 
+sudo apt-get update
+sudo apt-get install docker.io\n
+
+\n 
+# Install pip 
+sudo apt-get update 
+sudo apt-get install python-pip
+
+# Install apache2
+sudo apt install apache2
+
+/etc/systemd/system/docker.service.d/
+
+RUN apt-get update \ 
+        && apt-get -y install sudo
+
+
+
+为了docker登录不上去,我改了 这个: sudo vim /etc/resolv.conf 
+
+
+DNS: sudo vim /etc/resolv.conf
+
+### 事实证明不应该改DNS!!!
+
+
+### #重要: 
+安装 docker-machine!!!
+docker-machine 在Ubuntu不是自带的 需要安装. https://docs.docker.com/machine/install-machine/
+
+### 关于 docker-machine:
+还需要安装VirtualBox  
+sudo apt-get install virtualbox
+
+###
+docker tag local-image:tagname new-repo:tagname
+docker push new-repo:tagname
+
+docker build -t "chengengl/first-pack:bom3" .
+
+注意:
+在自动化的时候,需要docker worker拿到management产生的那个
+哦不 直接
+docker-machine ssh manager docker swarm join-token manager
+每一个worker server都需要join. 
+
+
+the ENTRYPOINT instruction supposed to run some executable, which should run every time you start the container, such as starting your server.
+
+the CMD supposed to include the flags provided to that executable, so they can be easily overridden when running the container.
+
+
+### Notes about Specifying volumes: 
+https://docs.docker.com/engine/reference/builder/#workdir
+
+Docker 的组织结构: 
+
+Docker Client客户端:  通过api访问 docker daemon管理docker镜像.
+Docker Daemon 守护进程, 负责 Docker镜像的创建,删除,启动和停止
+Docker image 镜像: 一张"只读"的系统CD
+Docker Container容器: Docker的容器,Docker Images 运行实例. 可以理解为吗docker image是一个class, docker container是一个object. 
+
+
+
+
+Docker Registry: Docker Image的仓库, Dock Hub: 
+
+Docker使用客户端-服务器架构模式, 使用远程api来管理和穿件Docker 容器. Docker容器通过
+
+
+
+
+
+
+ansible and docker: 
+https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+
+
+become: yes
+      become_method: sudo

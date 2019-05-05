@@ -1,0 +1,39 @@
+---  
+- name: Change etc environment for networking connection. 
+  become: yes
+  command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
+
+# inventory_hostname 可以拿到host的ip
+# ansible_distribution 可以拿到operating system的类型.
+# - debug:
+#     msg: '{{inventory_hostname}} and {{ansible_distribution}}'
+
+- name: Update apt-get
+  become: yes
+  apt: 
+    upgrade: yes
+    update_cache: yes
+# 以后有时间可以把 需要升级的整合到vars做成一个list, 然后apt module可以直接接收一个list_of_vars. 
+- name: Install pip
+  become: yes
+  apt: 
+    name: ['python-pip']
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Update pip
+  become: yes
+  pip:
+    name: ['pip']
+    state: latest
+
+- name: Install openstack
+  become: yes
+  pip: 
+    name: ['openstacksdk']
+    state: latest
+
+- name: Install docker
+  become: yes
+  apt:   
+    name: docker.io

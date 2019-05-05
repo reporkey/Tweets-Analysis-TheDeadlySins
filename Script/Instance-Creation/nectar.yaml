@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  vars_files:
+    - host_vars/nectar.yaml
+  gather_facts: true
+
+  roles:
+    - role: common
+    - role: images
+    - role: volume
+    - role: security-groups
+    - role: instance
+    - role: snapshot
+
+- import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
+# - hosts: test-server
+#   vars_files: 
+#     - host_vars/nectar.yaml
+#   gather_facts: true
+
+#   roles:
+#     - role: common
