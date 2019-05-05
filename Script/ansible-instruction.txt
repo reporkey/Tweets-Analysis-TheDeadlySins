@@ -129,6 +129,7 @@ Loop can be used when the variable is put into a list.
 
 
 
+
 ##########
 Images are similar to VM templates of vmware, wherein OS is pre-installed & you can create instances out of it. Even if you do not assign a volume to an image they can boot and work as the image by default has some disk assigned. By assigning volume (block storage) to an image you get additional drive on the VM where you can have your structural data. Even if you delete the VM, the data on volume is persistent. You can attach the volume to another VM just like an USB drive.\n
 
