@@ -126,6 +126,26 @@ Loop can be used when the variable is put into a list.
         when: contents.stdout == ""
 ##############################
 一篇很好的文章, 关于 facts 是如何collect的. 
+https://www.oreilly.com/library/view/ansible-up-and/9781491915318/ch04.html
+
+第二篇文章提到了一种使用setup module的方法,来拿到host的ip地址. 
+https://www.data-essential.com/ansible-how-to-collect-information-about-remote-hosts-with-gathers-facts/
+
+
+##############################
+一个很不错的文章, 关于ansible roles.
+https://medium.com/edureka/ansible-roles-78d48578aca1
+
+我现在在想一个办法, 但是貌似variables 没法跨playbook生效. 
+
+NEW UPDATE: 全局变量(跨play) 是可行的!
+貌似看这个ansible-configuration可以添加一个其他role的寻找路径. 
+https://docs.ansible.com/ansible/latest/installation_guide/intro_configuration.html#intro-configuration
+################################
+一种debug 方法:
+- debug: var=item.stdout_lines
+  with_items: result
+
 
 
 
