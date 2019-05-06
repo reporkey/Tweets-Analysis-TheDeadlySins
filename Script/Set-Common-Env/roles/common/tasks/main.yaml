@@ -7,6 +7,22 @@
 # ansible_distribution 可以拿到operating system的类型.
 # - debug:
 #     msg: '{{inventory_hostname}} and {{ansible_distribution}}'
+# 这个可以拿到主机的ip地址
+# - name: Test a dict-like built-in variables
+#   debug: var={{ansible_facts["eth0"]["ipv4"]["address"]}}
+# 这个可以拿到主机的名字..但是是错的 为啥是debian不是Ubuntu
+# - name: Display ansible_facts
+#   debug: var={{ hostvars['']['ansible_facts']['os_family'] }}
+
+# ansible_host 也可以拿到ip
+- name: Test host
+  debug: var={{ansible_host}}
+
+# Apart from above tests, these commands are actually useful. 
+- name: Change etc environment for networking connection. 
+  become: yes
+  command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
+
 
 - name: Update apt-get
   become: yes
