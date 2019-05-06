@@ -1,0 +1,11 @@
+{
+  "_id": "_design/perTotal",
+  "_rev": "2-0d283199de18bbc274d7874a0f1ae0c8",
+  "views": {
+    "per_total": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n    doc_x1 = doc.place.bounding_box.coordinates[0][0][0];\n    doc_y1 = doc.place.bounding_box.coordinates[0][0][1];\n    doc_x2 = doc.place.bounding_box.coordinates[0][2][0];\n    doc_y2 = doc.place.bounding_box.coordinates[0][1][1];\n    var Per_list = [115.5607, -32.4824, 116.4151, -31.4552];\n    x = (doc_x1 + doc_x2) / 2;\n    y = (doc_y1 + doc_y2) / 2;\n    if (Per_list[0] <= x && x <= Per_list[2] && Per_list[1] <= y && y <= Per_list[3]) {\n        emit(doc.text, \"Per\")\n    }\n}"
+    }
+  },
+  "language": "javascript"
+}

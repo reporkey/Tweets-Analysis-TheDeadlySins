@@ -1,0 +1,11 @@
+{
+  "_id": "_design/adeTotal",
+  "_rev": "2-0809d45a32836b559872c75f71736154",
+  "views": {
+    "ade_total": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n    doc_x1 = doc.place.bounding_box.coordinates[0][0][0];\n    doc_y1 = doc.place.bounding_box.coordinates[0][0][1];\n    doc_x2 = doc.place.bounding_box.coordinates[0][2][0];\n    doc_y2 = doc.place.bounding_box.coordinates[0][1][1];\n    var Ade_list = [138.4421, -35.3490, 138.7832, -34.6481];\n    x = (doc_x1 + doc_x2) / 2;\n    y = (doc_y1 + doc_y2) / 2;\n    if (Ade_list[0] <= x && x <= Ade_list[2] && Ade_list[1] <= y && y <= Ade_list[3]) {\n        emit(doc.text, \"Ade\")\n    }\n}"
+    }
+  },
+  "language": "javascript"
+}
