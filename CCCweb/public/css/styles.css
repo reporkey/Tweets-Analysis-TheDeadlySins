@@ -1,0 +1,86 @@
+.btn {
+  /*background-color: DodgerBlue;  Blue background */
+  border: none; /* Remove borders */
+  color: black; /* White text */
+  padding: 8px 13px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  /*background-color: RoyalBlue;*/
+  color:RoyalBlue;
+}
+.fa-home {
+  color: RoyalBlue;
+}
+.fa-chart-bar{
+  color:green;
+}
+.fa-youtube{
+  color:red;
+}
+.card {
+    background: #ffffff;
+    margin: 7.5px 0;
+    padding: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+.stat-widget-two {
+    text-align: center;
+  }
+  .stat-widget-two .stat-digit {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #373757;
+  }
+  .stat-widget-two .stat-digit i {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+  .stat-widget-two .stat-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #868e96;
+  }
+  .stat-widget-two .progress {
+    height: 8px;
+    margin-bottom: 0;
+    margin-top: 20px;
+    box-shadow: none;
+  }
+  .stat-widget-two .progress-bar {
+    box-shadow: none;
+  }
+  .page-header {
+    min-height: 50px;
+    margin: 15px 0 5px;
+    padding: 0 15px;
+    border-bottom: 0;
+    border-radius: 3px;
+  }
+  .page-header h1 {
+    font-size: 18px;
+    padding: 14px 0;
+    margin: 0;
+  }
+  .page-header h1 span {
+    font-size: 14px;
+  }
+  .progress-bar-primary {
+    background-color: #5873fe;
+  }
+  .progress-bar-success {
+    background-color: #28a745;
+  }
+  .footer > p {
+    margin-top: 8px;
+    padding: 8px;
+    text-align: center;
+  }
+  .footer > p a {
+    color: #5873fe;
+  }

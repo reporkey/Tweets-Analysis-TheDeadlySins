@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cluster and Cloud Computing</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/sidebar.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <i class="fas fa-chevron-down"></i> Team 3
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action bg-light">
+                <i class="fas fa-home"></i> Introduction
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">
+                <i class="fas fa-chart-bar"></i> Dashboard</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">
+                <i class="fab fa-youtube"></i> Demo</a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn" id="menu-toggle"><i class="fa fa-bars"></i></button>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Cluster and Cloud Computing Project <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>Hello, <span>The result shows below</span></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="stat-widget-two">
+                            <div class="stat-content">
+                                <div class="stat-text">Real Time Tweets </div>
+                                <div class="stat-digit">
+                                    <i class="fab fa-twitter"></i>18500</div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="stat-widget-two">
+                            <div class="stat-content">
+                                <div class="stat-text">Historical Tweets</div>
+                                <div class="stat-digit">
+                                    <i class="fab fa-twitter"></i>117800</div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <!--<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                        <div id="barChart" style="height: 300px; width: 100%;"></div>-->
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="chartAxes" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="barChartPass" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="ringChart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+                <!-- /# column -->
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="footer">
+            <p>2019 © Cluster and Cloud Computing. - <a href="#">The University of Melbourne</a></p>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript -->
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="/jquery/barChartPassValue.js"></script>
+<script src="/jquery/barChart.js"></script>
+<script src="/jquery/ringChart.js"></script>
+<script src="/jquery/chartWMultipleAxes.js"></script>
+<script src="/jquery/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+        var temp = <%=temp /10 %>
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light1", // "light2", "dark1", "dark2"
+            animationEnabled: false, // change to true
+            title:{
+                text: "Basic Column Chart"
+            },
+            data: [
+                {
+                    // Change type to "bar", "area", "spline", "pie",etc.
+                    type: "column",
+                    dataPoints: [
+                        { label: "apple",  y: temp  },
+                        { label: "orange", y: 15  },
+                        { label: "banana", y: 25  },
+                        { label: "mango",  y: 30  },
+                        { label: "grape",  y: 28  }
+                    ]
+                }
+            ]
+        });
+        chart.render();
+    }
+</script>
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+</body>
+
+</html>
