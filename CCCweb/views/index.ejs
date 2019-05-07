@@ -97,19 +97,17 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
-                        <!--<div id="chartContainer" style="height: 300px; width: 100%;"></div>
-                        <div id="barChart" style="height: 300px; width: 100%;"></div>-->
-                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                        <div id="barChartCities" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="barChartStates" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
                         <div id="chartAxes" style="height: 300px; width: 100%;"></div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div id="barChartPass" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -143,30 +141,53 @@
 <script src="/jquery/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-window.onload = function () {
-        var temp = <%=temp /10 %>
-        var chart = new CanvasJS.Chart("chartContainer", {
-            theme: "light1", // "light2", "dark1", "dark2"
-            animationEnabled: false, // change to true
-            title:{
-                text: "Basic Column Chart"
-            },
-            data: [
-                {
-                    // Change type to "bar", "area", "spline", "pie",etc.
-                    type: "column",
-                    dataPoints: [
-                        { label: "apple",  y: temp  },
-                        { label: "orange", y: 15  },
-                        { label: "banana", y: 25  },
-                        { label: "mango",  y: 30  },
-                        { label: "grape",  y: 28  }
-                    ]
-                }
-            ]
-        });
-        chart.render();
-    }
+    var chartCities = new CanvasJS.Chart("barChartCities", {
+        theme: "light1", // "light2", "dark1", "dark2"
+        animationEnabled: false, // change to true
+        title:{
+            text: "Percentage of 'FAT' Tweets in Different Cities"
+        },
+        data: [
+            {
+                // Change type to "bar", "area", "spline", "pie",etc.
+                type: "column",
+                dataPoints: [
+                    { label: "Adelaide",  y: <%=ade_Pass*100%> },
+                    { label: "Brisbane", y: <%=bri_Pass*100%> },
+                    { label: "Melbourne", y: <%=mel_Pass*100 %>  },
+                    { label: "Sydney",  y: <%=syd_Pass*100 %> },
+                    { label: "Canberra", y: <%=can_Pass*100 %>  },
+                    { label: "Perth", y: <%=per_Pass*100 %>},
+                    { label: "Hobart",  y: <%=hob_Pass*100 %> }
+                ]
+            }
+        ]
+    });
+chartCities.render();
+</script>
+<script type="text/javascript">
+    var chartStates = new CanvasJS.Chart("barChartStates", {
+        theme: "light1", // "light2", "dark1", "dark2"
+        animationEnabled: false, // change to true
+        title:{
+            text: "Percentage of 'FAT' Tweets in Different States"
+        },
+        data: [
+            {
+                // Change type to "bar", "area", "spline", "pie",etc.
+                type: "column",
+                dataPoints: [
+                    { label: "Victoria",  y: <%=vic_Pass*100%> },
+                    { label: "New South Wales", y: <%=nsw_Pass*100%> },
+                    { label: "Queensland", y: <%=qs_Pass*100 %>  },
+                    { label: "South Australia",  y: <%=sa_Pass*100 %> },
+                    { label: "Tasmania", y: <%=tas_Pass*100 %>  },
+                    { label: "Western Australia", y: <%=wa_Pass*100 %>}
+                ]
+            }
+        ]
+    });
+    chartStates.render();
 </script>
 <!-- Menu Toggle Script -->
 <script>
