@@ -9,19 +9,34 @@ volumes:
     vol_size: 10
 
 # Security Groups
+
+# security_groups:
+#   - name: ssh
+#   - name: http
+#   - name: ICMP
+#   - name: default
+
 security_groups:
-  - name: test_ssh
-    description: "Test Security group for SSH access"
+  - name: Automation_ssh
+    description: "Security group for SSH access"
     protocol: tcp
     port_range_min: 22
     port_range_max: 22
     remote_ip_prefix: 0.0.0.0/0 #128.250.0.0/16
-  - name: test_http
-    description: "Test Security group for HTTP"
+  - name: Automation_http
+    description: "Security group for HTTP"
     protocol: tcp
     port_range_min: 80
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
+  # - name: Automation_icmp
+  #   description: "Security group for ICMP"
+  #   protocol: icmp
+  #   remote_ip_prefix: 0.0.0.0/0
+  #   port_range_min: 0
+  #   port_range_max: 0
+
+
 
 # Instance
 instance_name: 

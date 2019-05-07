@@ -17,9 +17,16 @@
         ip_facts: "{{ip_facts|default([]) + [{'name': item.openstack.name, 'address': item.openstack.public_v4}]}}"
       loop: '{{ os_instance.results}}'
       when: item.openstack is defined
-    - debug: var=ip_facts
+    - debug: var=ip_facts # ip_facts will be a list, containing 2 or 3 dictionaries(depending on the number of instances.)
+    # - debug: var=
+    
 
-- import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
+    # - name: Change local hosts file by adding the dynamic ip addresses
+
+
+
+# - import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
+
 # - hosts: test-server
 #   vars_files: 
 #     - host_vars/nectar.yaml
@@ -27,3 +34,13 @@
 
 #   roles:
 #     - role: common
+# - hosts: server
+#   tasks:
+#     - name: Change etc environment for networking connection. 
+#       become: yes
+#       command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n"http_proxy="http://wwwproxy.unimelb.edu.au:8000\n"https_proxy="http://wwwproxy.unimelb.edu.au:8000\n"ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
+    # - name: Attach existing volume to instance. 
+    #   os_server_volume:
+    #     volume: Automation-attatch
+    #     server: test-vol-1
+    #     device: /dev/vdb
