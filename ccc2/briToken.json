@@ -1,0 +1,11 @@
+{
+  "_id": "_design/briToken",
+  "_rev": "1-8a8b49075e34edbcc89278514b1bcce7",
+  "views": {
+    "bri_token": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n    doc_x1 = doc.place.bounding_box.coordinates[0][0][0];\n    doc_y1 = doc.place.bounding_box.coordinates[0][0][1];\n    doc_x2 = doc.place.bounding_box.coordinates[0][2][0];\n    doc_y2 = doc.place.bounding_box.coordinates[0][1][1];\n    var Bri_list = [152.6859, -27.6633, 153.4685, -27.0220];\n    x = (doc_x1 + doc_x2) / 2;\n    y = (doc_y1 + doc_y2) / 2;\n    x = (doc_x1 + doc_x2) / 2;\n    y = (doc_y1 + doc_y2) / 2;\n    var emojis = ['🍔', '🍟', '🍕', '🌭', '🍰', '🍫', '🍦', '🍨', '🍩', '🍺', '🍻', '😋', '🤤', '🎂', '🍷', '🍬', '🍪', '🍗', '🍜']\n    var token_list = ['Burger', 'Fast food', 'Fish and chips', 'Ice cream', 'Junk food', 'Beer', 'Soft drink', 'KFC', 'Alcohol', 'McDonald', 'Hungry Jack', 'Chocolate', 'Cake', 'Doughnut', 'Cheess', 'Fried chicken', 'dominos', 'dessert', 'Candy', 'Bubble Tea']\n    for (var i = 0; i < token_list.length; i++) {\n        token_list[i] = token_list[i].toLowerCase()\n    }\n    var all = token_list.concat(emojis)\n    if (Bri_list[0] <= x && x <= Bri_list[2] && Bri_list[1] <= y && y <= Bri_list[3]) {\n        for (var i = 0; i < all.length; i++) {\n            if (doc.text.toLowerCase().indexOf(all[i]) != -1) {\n                emit(doc.text, \"Bri\");\n            }\n        }\n    }\n}"
+    }
+  },
+  "language": "javascript"
+}
