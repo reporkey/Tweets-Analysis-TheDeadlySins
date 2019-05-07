@@ -1,18 +1,24 @@
 ---
 - name: Create an instace
   os_server: 
-    name: '{{ instance_name}}'
+    name: '{{ item}}'
     image: '{{ instance_image}}'
     key_name: '{{ instance_key_name}}'
     flavor: '{{instance_flavor}}'
     availability_zone: '{{ availability_zone}}'
     security_groups: '{{ sg_names}}'
-    volumes: '{{ os_vol_ids}}'
+    # No need to create volume and attatch it now...
+    # I'm considering probably use another role to create a volume and attach it to the existing instance to show the process of automation. But indeed the only instance that needs a large volume is the data  base instance. 
+    # volumes: '{{ os_vol_ids}}'
     auto_floating_ip: yes
     wait: yes
     timeout: 600
     state: present
-  register: os_instance
+  register: os_instance 
+  # I would assume that the registered variables will be a list??
+  loop: "{{instance_name}}"
+
+# - debug: var=os_instance
 
 # - debug: var=ansible_facts  这个可以把当前运行的环境的facts提取出来. remote的还是拿不到
 # - name: Add proxy into the new instance
@@ -22,5 +28,6 @@
 #   command: sudo echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
 
 - debug: 
-    msg: "Instance {{ instance_name}} has been created. IP address is {{os_instance.openstack.public_v4 }} "
-  when: os_instance.openstack is defined
+    msg: "Instance {{ item.openstack.name}} has been created. IP address is {{item.openstack.public_v4 }} "
+  loop: "{{os_instance.results}}"
+  # when: os_instance.openstack is defined

@@ -11,6 +11,13 @@
     - role: security-groups
     - role: instance
     - role: snapshot
+  tasks: 
+    - name: Grap the ip addresses from new-built instances
+      set_fact:
+        ip_facts: "{{ip_facts|default([]) + [{'name': item.openstack.name, 'address': item.openstack.public_v4}]}}"
+      loop: '{{ os_instance.results}}'
+      when: item.openstack is defined
+    - debug: var=ip_facts
 
 - import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
 # - hosts: test-server
