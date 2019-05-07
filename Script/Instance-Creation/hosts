@@ -1,7 +1,7 @@
 [test-server]
 172.26.37.200
 [server]
-172.26.37.234
+172.26.38.153
 [all:vars]
 ansible_ssh_user=ubuntu
 ansible_ssh_private_key_file=/Users/Apple/.ssh/tesft2

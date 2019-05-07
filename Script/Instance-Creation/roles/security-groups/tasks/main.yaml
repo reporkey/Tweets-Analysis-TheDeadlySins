@@ -1,10 +1,10 @@
 --- 
-- name: Create a security group
-  os_security_group:
-    name: '{{ item.name}}'
-    description: '{{ item.description}}'
-    state: present
-  loop: '{{ security_groups}}'
+# - name: Create a security group
+#   os_security_group:
+#     name: '{{ item.name}}'
+#     description: '{{ item.description}}'
+#     state: present
+#   loop: '{{ security_groups}}'
 
 - name: Create a list of security group names
   set_fact:
@@ -14,15 +14,15 @@
 - debug:
     msg: "Security group(S) {{ sg_names }} have been created"
 # 这里对于ICMP来说可能是一个风险..因为ICMP并没有define ports,我不知道这里会不会导致无法使用..
-- name: Create security group rules SSH and HTTP
-  os_security_group_rule: 
-    security_group: '{{ item.name}}'
-    protocol: '{{ item.protocol}}'
-    port_range_min: '{{ item.port_range_min}}'
-    port_range_max: '{{ item.port_range_max}}'
-    remote_ip_prefix: '{{ item.remote_ip_prefix}}'
-    state: present
-  loop: '{{ security_groups}}'
+# - name: Create security group rules SSH and HTTP
+#   os_security_group_rule: 
+#     security_group: '{{ item.name}}'
+#     protocol: '{{ item.protocol}}'
+#     port_range_min: '{{ item.port_range_min}}'
+#     port_range_max: '{{ item.port_range_max}}'
+#     remote_ip_prefix: '{{ item.remote_ip_prefix}}'
+#     state: present
+#   loop: '{{ security_groups}}'
 
 # - name: Create security group rules ICMP
 #   os_security_group_rule:

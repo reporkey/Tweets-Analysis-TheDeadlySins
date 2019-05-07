@@ -34,10 +34,19 @@
 
 #   roles:
 #     - role: common
-# - hosts: server
-#   tasks:
-#     - name: Change etc environment for networking connection. 
-#       become: yes
+
+# This should be fixed. 
+- hosts: server
+  tasks:
+    - name: Change etc environment for networking connection. 
+      become: yes
+      command: bash -c 'echo http_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+    - name: Change etc environment for networking connection.
+      become: yes
+      command: bash -c 'echo https_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+    - name: Cahnge etc environment for networking connection.
+      become: yes
+      command: bash -c 'echo ftp_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
 #       command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n"http_proxy="http://wwwproxy.unimelb.edu.au:8000\n"https_proxy="http://wwwproxy.unimelb.edu.au:8000\n"ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
     # - name: Attach existing volume to instance. 
     #   os_server_volume:
