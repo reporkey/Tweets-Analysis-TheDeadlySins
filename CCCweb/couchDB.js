@@ -1,6 +1,7 @@
 const nano = require('nano')('http://admin:group3@172.26.38.76:5984');
 const fs = require('fs');
 require("async");
+const utilities = require("./utilities");
 
 const viewPath = "./designDoc.json";
 let viewData = fs.readFileSync(viewPath);
@@ -15,24 +16,40 @@ const dbName = "realtime_tweets";
 const designDocName = "filter";
 const dbNano = nano.use(dbName);
 
-let token = null;
-let total = null;
+
+let result = {
+    "token": null,
+    "total": null,
+    "dbInfo": null
+};
+
+async function filterToken() {
+    let newToken = await dbNano.get('_design/'+designDocName+'/_view/token');
+    return newToken.rows[0].value;
+}
+async function filterTotal() {
+    let newTotal = await dbNano.get('_design/'+designDocName+'/_view/total');
+    return newTotal.rows[0].value;
+}
+async function dbInfo() {
+    return await dbNano.info();
+}
+function refreshReduce() {
+    Promise.all([filterToken(), filterTotal(), dbInfo()]).then(([newToken, newTotal, newDbInfo]) => {
+        result.token = newToken;
+        result.total = newTotal;
+        result.dbInfo = newDbInfo;
+        console.log("refresh");
+    })
+    setTimeout(refreshReduce, 5000);
+}
 
 // insert design documents
 module.exports = {
     creatView: async function() {
         try {
             await dbNano.insert({
-                    "views": {
-                        "token": {
-                            "reduce": viewJson.token.reduce,
-                            "map": viewJson.token.map
-                        },
-                        "total": {
-                            "reduce": viewJson.total.reduce,
-                            "map": viewJson.total.map
-                        }
-                    },
+                    "views": viewJson,
                     "language": "javascript"
                 },
                 '_design/filter'
@@ -40,22 +57,11 @@ module.exports = {
         } catch(err) {
             console.log(err);
         }
-        await dbNano.get('_design/'+designDocName+'/_view/token').then((body) => {
-            console.log("Token: ", body.rows[0].value);
-        });
-        await dbNano.get('_design/'+designDocName+'/_view/total').then((body) => {
-            console.log("Total:", body.rows[0].value);
-        });
+        result.token = await filterToken();
+        result.total = await filterTotal();
+        result.dbInfo = await dbInfo();
         console.log("Couchdb init success.");
+        refreshReduce();
     },
-
-    filterToken: async function () {
-        let body = await dbNano.get('_design/'+designDocName+'/_view/token');
-        return body.rows[0].value;
-    },
-
-    filterTotal: async function() {
-        let body = await dbNano.get('_design/'+designDocName+'/_view/total');
-        return body.rows[0].value;
-    }
+    getResult: () => {console.log("getResult"); return result;}
 };
