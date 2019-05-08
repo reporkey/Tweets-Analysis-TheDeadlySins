@@ -1,8 +1,9 @@
 ---  
 - name: Change etc environment for networking connection. 
   become: yes
-  command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
+  command: sudo echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n"http_proxy="http://wwwproxy.unimelb.edu.au:8000\n"https_proxy="http://wwwproxy.unimelb.edu.au:8000\n"ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
 
+# PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # inventory_hostname 可以拿到host的ip
 # ansible_distribution 可以拿到operating system的类型.
 # - debug:
@@ -19,22 +20,22 @@
   debug: var={{ansible_host}}
 
 # Apart from above tests, these commands are actually useful. 
-- name: Change etc environment for networking connection. 
-  become: yes
-  command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
+# - name: Change etc environment for networking connection. 
+#   become: yes
+#   command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
 
 
 - name: Update apt-get
   become: yes
   apt: 
     upgrade: yes
-    update_cache: yes
+    # update_cache: yes
 # 以后有时间可以把 需要升级的整合到vars做成一个list, 然后apt module可以直接接收一个list_of_vars. 
 - name: Install pip
   become: yes
   apt: 
     name: ['python-pip']
-    update_cache: yes
+    # update_cache: yes
   when: ansible_distribution == "Ubuntu"
 
 - name: Update pip

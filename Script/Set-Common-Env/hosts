@@ -1,8 +1,10 @@
 [test-server]
 172.26.37.200
+[server]
+172.26.37.234
 [all:vars]
 ansible_ssh_user=ubuntu
-ansible_ssh_private_key_file=/Users/apple/.ssh/tesft2
+ansible_ssh_private_key_file=/Users/Apple/.ssh/tesft2
 
 # Here is the question:
 # How would you dynamiclly add the ip address into the hosts file? 

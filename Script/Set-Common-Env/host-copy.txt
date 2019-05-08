@@ -1,0 +1,4 @@
+# ansible_ssh_private_key_file=/Users/Apple/.ssh/tesft2
+
+# Here is the question:
+# How would you dynamiclly add the ip address into the hosts file? 

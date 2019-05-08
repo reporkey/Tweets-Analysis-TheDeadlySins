@@ -1,5 +1,5 @@
 ---
-  - hosts: test-server
+  - hosts: server
     vars_files:
       - host_vars/env-var.yaml
     gather_facts: true
