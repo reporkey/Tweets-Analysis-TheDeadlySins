@@ -25,9 +25,10 @@ if __name__ == '__main__':
 
     skip = 0
     limit = 50
-    max = 10000
+    count = 0
+    max = 500000
 
-    while (skip < max):
+    while (count < max):
         for item in sourceDatabase.view(name="_design/twitter/_view/summary",
                                         reduce=False, include_docs=True, limit=limit, skip=skip):
             itemJson = item["doc"]
@@ -35,6 +36,7 @@ if __name__ == '__main__':
             itemJson.pop("_rev", None)
 
             # pre-filter
-            if "place" in itemJson and itemJson["place"] is not None and itemJson["place"]["country"] is "Australia":
+            if "place" in itemJson and itemJson["place"] is not None:
                 myDatabase.save(itemJson)
-                skip += 1
+                count += 1
+        skip += limit
