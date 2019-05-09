@@ -138,7 +138,7 @@ https://medium.com/edureka/ansible-roles-78d48578aca1
 
 我现在在想一个办法, 但是貌似variables 没法跨playbook生效. 
 
-NEW UPDATE: 全局变量(跨play) 是可行的!
+NEW UPDATE: 全局变量(跨play) 是可行的! -----#####详情看苹果notes
 貌似看这个ansible-configuration可以添加一个其他role的寻找路径. 
 https://docs.ansible.com/ansible/latest/installation_guide/intro_configuration.html#intro-configuration
 ################################
