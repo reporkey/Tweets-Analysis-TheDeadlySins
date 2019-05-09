@@ -1,0 +1,21 @@
+{
+  "name": "untitled",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.2",
+    "body-parser": "latest",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "nano": "^8.1.0",
+    "node-couchdb": "^1.3.0",
+    "promised-io": "^0.3.5"
+  }
+}

@@ -1,0 +1,2 @@
+sudo docker create couchdb:2.3.0 --ip=
+sudo docker start id
