@@ -19,17 +19,37 @@
       when: item.openstack is defined
     - debug: var=ip_facts # ip_facts will be a list, containing 2 or 3 dictionaries(depending on the number of instances.)
     # - debug: var=
-    - name: Store dynamic ip into local storage.
-      copy: content="{{item.address}}" dest=/Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/test_ip.txt
+
+
+    # - name: Store dynamic ip into local storage.
+    #   copy: content="{{item.address}}" dest=/Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/test_ip.txt
+    #   loop: '{{ip_facts}}'
+    - name: Pause and wait for instance creation 
+      pause: 
+        seconds: 30
+
+    - name: Wait for SSH connection to instances
+      command: >
+        ssh ubuntu@'{{item.address}}'
       loop: '{{ip_facts}}'
+      loop_control:
+        index_var: ins_index
+
     - name: Add dynamic hosts into inventory
-        add_hosts: 
-          name= 
+      add_host: >
+        name=dbserver groups=dbservers >
+        ansible_host={{ip_facts[0].address}}
+    - name: Print out db hosts
+      debug: var=ip_facts[0].address
     
 
     # - name: Change local hosts file by adding the dynamic ip addresses
 
 
+# The importing of the playbook Set-Common-Env is working as Expected. 
+# However, This playbook causes trouble: 
+# 1. When trying to get the dynamic ip addres of the newly created instances, 
+# It seems that it would be hard to modify the local /Set-Common-Env/hosts file. This modification is feasible though(I mean through t)
 
 # - import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
 
