@@ -1,5 +1,5 @@
 ---
-- name: Create an instace
+- name: Create an instance
   os_server: 
     name: '{{ item}}'
     image: '{{ instance_image}}'

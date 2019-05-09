@@ -26,7 +26,7 @@
     #   loop: '{{ip_facts}}'
     - name: Pause and wait for instance creation 
       pause: 
-        seconds: 30
+        seconds: 60
 
     - name: Wait for SSH connection to instances
       command: >
@@ -39,13 +39,20 @@
       add_host: >
         name=dbserver groups=dbservers >
         ansible_host={{ip_facts[0].address}}
-    - name: Print out db hosts
-      debug: var=ip_facts[0].address
-    
-
-    # - name: Change local hosts file by adding the dynamic ip addresses
-
-
+    - name: Add dynamic hosts into inventory
+      add_host: >
+        name=webserver groups=webservers >
+        ansible_host={{ip_facts[1].address}}
+    - name: 
+    - name: Attach volume to the existing server. 
+      os_server_volume:
+        state: present
+        server: dbserver
+        volume: '{{item.vol_name}}'
+        device: /dev/vdb
+      loop: '{{existing_volume}}'
+        
+  
 # The importing of the playbook Set-Common-Env is working as Expected. 
 # However, This playbook causes trouble: 
 # 1. When trying to get the dynamic ip addres of the newly created instances, 
@@ -53,33 +60,30 @@
 
 # - import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
 
-# - hosts: test-server
-#   vars_files: 
-#     - host_vars/nectar.yaml
-#   gather_facts: true
-
-#   roles:
-#     - role: common
-
 # This should be fixed. 
-# - hosts: '{{ip_facts[0]}}'
-#   tasks:
-#     - name: Change etc environment for networking connection. 
-#       become: yes
-#       command: bash -c 'echo http_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
-#     - name: Change etc environment for networking connection.
-#       become: yes
-#       command: bash -c 'echo https_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
-#     - name: Cahnge etc environment for networking connection.
-#       become: yes
-#       command: bash -c 'echo ftp_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+- hosts: dbserver
+  vars_files:
+    - host_vars/nectar.yaml
+  roles: 
+    - role: env-setup
+
+  # 这里报错了 volume 沾不上去. 报的错是auth_...可是Auth文件不是已经提供了么
+  # 难道说auth会随着主机变化消失? 
+  # Attach volume to an existing server will need an openstacksdk installed, which is done in env-setup. 
+  # tasks: 
+  #   - name: Attach Volumes to instances.
+  #     os_server_volume:
+  #       state: present
+  #       server: dbserver
+  #       volume: '{{item.vol_name}}'
+  #       device: /dev/vdb   # Not too sure the function of using device. Do i still need to mount it using script? 
+  #     loop: '{{existing_volume}}'
 
 
-#       command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n"http_proxy="http://wwwproxy.unimelb.edu.au:8000\n"https_proxy="http://wwwproxy.unimelb.edu.au:8000\n"ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
-
-
-    # - name: Attach existing volume to instance. 
-    #   os_server_volume:
-    #     volume: Automation-attatch
-    #     server: test-vol-1
-    #     device: /dev/vdb
+- hosts: webserver
+  vars_files:
+    - host_vars/nectar.yaml
+  roles: 
+    - role: env-setup
+    - role: crawler-setup
+    

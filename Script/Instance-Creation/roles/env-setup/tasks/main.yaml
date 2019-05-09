@@ -1,0 +1,73 @@
+# - name: Change etc environment for networking connection. 
+#   become: yes
+#   command: bash -c 'echo http_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+# - name: Change etc environment for networking connection.
+#   become: yes
+#   command: bash -c 'echo https_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+# - name: Change etc environment for networking connection.
+#   become: yes
+#   command: bash -c 'echo ftp_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+# - name: Change etc environment for networking connection.
+#   become: yes
+#   command: bash -c 'echo no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu >> /etc/environment'
+
+- name: Add four proxies into etc environment
+  become: yes
+  command: bash -c '{{item}}'
+  loop: '{{proxy_rule}}'
+
+- name: Update apt-get
+  become: yes
+  apt: 
+    upgrade: yes
+
+- name: Install pip
+  become: yes
+  apt: 
+    name: ['python3-pip']
+    # update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Update pip
+  become: yes
+  pip:
+    name: ['pip']
+    state: latest
+# Cannot install tweepy and curl. Since there is no pip3 module in ansible. 
+- name: Install openstacksdk
+  become: yes
+  pip: 
+    name: openstacksdk
+    state: latest
+
+- name: Install vim, docker
+  become: yes
+  apt:   
+    name: '{{item}}'
+  loop:
+    - "docker.io"
+    - "vim"
+
+- name: Configure docker internet setup
+  become: yes
+  command: mkdir /home/ubuntu/scripts
+
+- name: Configuure docker internet setup
+  become: yes
+  copy: 
+    src: docker-setup.sh
+    dest: /home/ubuntu/scripts
+
+- name: Configure docker internet setup
+  become: yes
+  command: bash /home/ubuntu/scripts/docker-setup.sh
+
+
+# 或许这一步可以放到docker image里面?????
+# - name: Configure docker internet connection. 
+#   become: yes
+#   command: bash -c 
+  
+
+
+
