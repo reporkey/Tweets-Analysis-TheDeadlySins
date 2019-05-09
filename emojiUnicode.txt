@@ -1,0 +1,23 @@
+U+1F354	🍔 hamburger
+U+1F35F	🍟 french fries
+U+1F355 🍕 pizza
+U+1F32D 🌭 hot dog
+U+1F370 🍰 shortcake
+U+1F9C1 cupcake
+U+1F36B 🍫  chocolate bar
+U+1F366 🍦 soft ice cream
+U+1F368 🍨 ice cream
+U+1F369 🍩 doughnut
+U+1F37A 🍺 beer mug
+U+1F37B 🍻 clinking beer mugs
+U+1F60B 😋 face savoring food
+U+1F924 🤤 drooling face
+
+/*
+import emoji
+text     = "🤔 🙈 lorum ipsum 😌 de 💕👭👙"
+decode   = text.decode('utf-8')
+allchars = [str for str in decode]
+list     = [c for c in allchars if c in emoji.UNICODE_EMOJI]
+print list
+*/
