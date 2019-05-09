@@ -4,11 +4,12 @@ const db = require("./couchDB");
 module.exports = {
     indexPage: function (req, res) {
         let result = db.getResult();
-        let token = result.token;
-        let total = result.total;
-        console.log(result)
+        let token = result.realtime.token;
+        let total = result.realtime.total;
+        console.log(result);
         res.render('index', {
-            totalTweets: total.count,
+            historicalTotalTweets: result.historical.total.count,
+            realtimeTotalTweets: result.realtime.total.count,
             ade_Pass: token.ade / total.ade,
             bri_Pass: token.bri / total.bri,
             mel_Pass: token.mel / total.mel,
