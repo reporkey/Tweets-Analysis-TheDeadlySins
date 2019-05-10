@@ -7,9 +7,11 @@ volumes:
     vol_size: 10
   - vol_name: test-vol-2
     vol_size: 10
-existing_volume:
   - vol_name: Automation-attatch
-
+    vol_size: 1
+    id: 6c4be53a-d610-4e46-b6e7-52e252097750
+existing_volume: Automation-attatch
+ 
 # Security Groups
 
 # security_groups:
@@ -55,9 +57,9 @@ instance_image: 37788d15-12bd-488c-b15e-903d43eae051
 instance_key_name: tesft2
 instance_flavor: uom.mse.2c9g
 
-new_hosts_name:
-  - name: Crawler1
-  - name: Crawler2
+# new_hosts_name:
+#   - name: Crawler1
+#   - name: Crawler2
 
 proxy_rule:
   - 'echo http_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'

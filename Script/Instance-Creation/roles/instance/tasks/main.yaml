@@ -8,7 +8,7 @@
     availability_zone: '{{ availability_zone}}'
     security_groups: '{{ sg_names}}'
     # No need to create volume and attatch it now...
-    # I'm considering probably use another role to create a volume and attach it to the existing instance to show the process of automation. But indeed the only instance that needs a large volume is the data  base instance. 
+
     # volumes: '{{ os_vol_ids}}'
     auto_floating_ip: yes
     wait: yes
@@ -17,14 +17,14 @@
   register: os_instance 
   loop: "{{instance_name}}"
 
+
+
 # - debug: var=os_instance
 
 # - debug: var=ansible_facts  这个可以把当前运行的环境的facts提取出来. remote的还是拿不到
 # - name: Add proxy into the new instance
 #   file: path=/home/ubuntu/RealTimeCrawler state=directory
   
-# - name: Change etc environment
-#   command: sudo echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n" http_proxy="http://wwwproxy.unimelb.edu.au:8000\n" https_proxy="http://wwwproxy.unimelb.edu.au:8000\n" ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
 
 - debug: 
     msg: "Instance {{ item.openstack.name}} has been created. IP address is {{item.openstack.public_v4 }} "

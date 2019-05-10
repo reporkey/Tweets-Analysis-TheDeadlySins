@@ -3,7 +3,7 @@
   become: yes
   copy: 
     src: crawler-setup.sh 
-    dest: /home/ubuntu/scripts
+    dest: /home/ubuntu/
 - name: Install tweepy
   become: yes
-  command: bash /home/ubuntu/scripts/crawler-setup.sh
+  command: bash /home/ubuntu/crawler-setup.sh

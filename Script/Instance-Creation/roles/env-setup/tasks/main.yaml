@@ -48,19 +48,19 @@
     - "docker.io"
     - "vim"
 
-- name: Configure docker internet setup
-  become: yes
-  command: mkdir /home/ubuntu/scripts
+# - name: Configure docker internet setup
+#   become: yes
+#   command: mkdir /home/ubuntu/scripts
 
 - name: Configuure docker internet setup
   become: yes
   copy: 
     src: docker-setup.sh
-    dest: /home/ubuntu/scripts
+    dest: /home/ubuntu/
 
 - name: Configure docker internet setup
   become: yes
-  command: bash /home/ubuntu/scripts/docker-setup.sh
+  command: bash /home/ubuntu/docker-setup.sh
 
 
 # 或许这一步可以放到docker image里面?????

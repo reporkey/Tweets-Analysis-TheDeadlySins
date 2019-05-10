@@ -7,3 +7,8 @@ sudo bash -c 'echo Environment=\"HTTP_PROXY=http://wwwproxy.unimelb.edu.au:8000\
 sudo touch /etc/systemd/system/docker.service.d/https-proxy.conf
 sudo bash -c 'echo [Service] >> https-proxy.conf'
 sudo bash -c 'echo Environment=\"HTTPS_PROXY=http://wwwproxy.unimelb.edu.au:8000\" >> https-proxy.conf'
+
+sleep 5
+sudo systemctl daemon-reload && sudo systemctl restart docker
+sleep 20
+sudo docker pull couchdb:2.3.0

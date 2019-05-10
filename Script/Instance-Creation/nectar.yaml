@@ -26,14 +26,14 @@
     #   loop: '{{ip_facts}}'
     - name: Pause and wait for instance creation 
       pause: 
-        seconds: 60
+        seconds: 90
 
-    - name: Wait for SSH connection to instances
-      command: >
-        ssh ubuntu@'{{item.address}}'
-      loop: '{{ip_facts}}'
-      loop_control:
-        index_var: ins_index
+    # - name: Wait for SSH connection to instances
+    #   command: >
+    #     ssh ubuntu@'{{item.address}}'
+    #   loop: '{{ip_facts}}'
+    #   loop_control:
+    #     index_var: ins_index
 
     - name: Add dynamic hosts into inventory
       add_host: >
@@ -43,15 +43,25 @@
       add_host: >
         name=webserver groups=webservers >
         ansible_host={{ip_facts[1].address}}
-    - name: 
-    - name: Attach volume to the existing server. 
+    - name: Attach
       os_server_volume:
         state: present
         server: dbserver
-        volume: '{{item.vol_name}}'
+        volume: Automation-attatch
         device: /dev/vdb
-      loop: '{{existing_volume}}'
-        
+
+
+# - name: Attach volume
+#   hosts: localhost
+#   vars_files:
+#     - host_vars/nectar.yaml
+  # tasks: 
+  # - name: Attach
+  #   os_server_volume:
+  #     state: present
+  #     server: dbserver
+  #     volume: Automation-attatch
+  #     device: /dev/vdb
   
 # The importing of the playbook Set-Common-Env is working as Expected. 
 # However, This playbook causes trouble: 
@@ -66,18 +76,6 @@
     - host_vars/nectar.yaml
   roles: 
     - role: env-setup
-
-  # 这里报错了 volume 沾不上去. 报的错是auth_...可是Auth文件不是已经提供了么
-  # 难道说auth会随着主机变化消失? 
-  # Attach volume to an existing server will need an openstacksdk installed, which is done in env-setup. 
-  # tasks: 
-  #   - name: Attach Volumes to instances.
-  #     os_server_volume:
-  #       state: present
-  #       server: dbserver
-  #       volume: '{{item.vol_name}}'
-  #       device: /dev/vdb   # Not too sure the function of using device. Do i still need to mount it using script? 
-  #     loop: '{{existing_volume}}'
 
 
 - hosts: webserver
