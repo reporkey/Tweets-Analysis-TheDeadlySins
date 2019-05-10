@@ -2,3 +2,6 @@ keys/
 */.idea/
 ./idea/
 /Pass/
+/Script/api_password.txt
+/.DS_Store
+*/.DS_Store

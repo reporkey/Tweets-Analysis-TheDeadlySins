@@ -19,47 +19,69 @@
       when: item.openstack is defined
     - debug: var=ip_facts # ip_facts will be a list, containing 2 or 3 dictionaries(depending on the number of instances.)
     # - debug: var=
-    - name: Store dynamic ip into local storage.
-      copy: content="{{item.address}}" dest=/Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/test_ip.txt
-      loop: '{{ip_facts}}'
+
+
+    # - name: Store dynamic ip into local storage.
+    #   copy: content="{{item.address}}" dest=/Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/test_ip.txt
+    #   loop: '{{ip_facts}}'
+    - name: Pause and wait for instance creation 
+      pause: 
+        seconds: 90
+
+    # - name: Wait for SSH connection to instances
+    #   command: >
+    #     ssh ubuntu@'{{item.address}}'
+    #   loop: '{{ip_facts}}'
+    #   loop_control:
+    #     index_var: ins_index
+
     - name: Add dynamic hosts into inventory
-        add_hosts: 
-          name= 
-    
+      add_host: >
+        name=dbserver groups=dbservers >
+        ansible_host={{ip_facts[0].address}}
+    - name: Add dynamic hosts into inventory
+      add_host: >
+        name=webserver groups=webservers >
+        ansible_host={{ip_facts[1].address}}
+    - name: Attach
+      os_server_volume:
+        state: present
+        server: dbserver
+        volume: Automation-attatch
+        device: /dev/vdb
 
-    # - name: Change local hosts file by adding the dynamic ip addresses
 
-
+# - name: Attach volume
+#   hosts: localhost
+#   vars_files:
+#     - host_vars/nectar.yaml
+  # tasks: 
+  # - name: Attach
+  #   os_server_volume:
+  #     state: present
+  #     server: dbserver
+  #     volume: Automation-attatch
+  #     device: /dev/vdb
+  
+# The importing of the playbook Set-Common-Env is working as Expected. 
+# However, This playbook causes trouble: 
+# 1. When trying to get the dynamic ip addres of the newly created instances, 
+# It seems that it would be hard to modify the local /Set-Common-Env/hosts file. This modification is feasible though(I mean through t)
 
 # - import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
 
-# - hosts: test-server
-#   vars_files: 
-#     - host_vars/nectar.yaml
-#   gather_facts: true
-
-#   roles:
-#     - role: common
-
 # This should be fixed. 
-# - hosts: '{{ip_facts[0]}}'
-#   tasks:
-#     - name: Change etc environment for networking connection. 
-#       become: yes
-#       command: bash -c 'echo http_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
-#     - name: Change etc environment for networking connection.
-#       become: yes
-#       command: bash -c 'echo https_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
-#     - name: Cahnge etc environment for networking connection.
-#       become: yes
-#       command: bash -c 'echo ftp_proxy=\"http://wwwproxy.unimelb.edu.au:8000\" >> /etc/environment'
+- hosts: dbserver
+  vars_files:
+    - host_vars/nectar.yaml
+  roles: 
+    - role: env-setup
 
 
-#       command: echo -e PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games\n"http_proxy="http://wwwproxy.unimelb.edu.au:8000\n"https_proxy="http://wwwproxy.unimelb.edu.au:8000\n"ftp_proxy="http://wwwproxy.unimelb.edu.au:8000\n" > /etc/environment
-
-
-    # - name: Attach existing volume to instance. 
-    #   os_server_volume:
-    #     volume: Automation-attatch
-    #     server: test-vol-1
-    #     device: /dev/vdb
+- hosts: webserver
+  vars_files:
+    - host_vars/nectar.yaml
+  roles: 
+    - role: env-setup
+    - role: crawler-setup
+    
