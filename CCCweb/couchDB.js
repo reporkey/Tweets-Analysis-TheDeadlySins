@@ -14,7 +14,7 @@ nano.db.list().then((body) => {
 
 const designDocName = "filter";
 const realtimeTweets = nano.use("realtime_tweets");
-const historicalTweets = nano.use("historical_tweets");
+const historicalTweets = nano.use("historical_tweets_new");
 
 let result = {
     "realtime": { "token": null, "total": null,},
