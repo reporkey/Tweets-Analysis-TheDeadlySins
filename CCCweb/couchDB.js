@@ -11,6 +11,10 @@ const viewPath_melb = "./historical_melb_designDoc.json";
 let viewData_melb = fs.readFileSync(viewPath_melb);
 let viewJson_melb = JSON.parse(viewData_melb);
 
+const viewPath_historical = "./historical_designDoc.json";
+let viewData_historical = fs.readFileSync(viewPath_historical);
+let viewJson_historical = JSON.parse(viewData_historical);
+
 // List all existing databases
 nano.db.list().then((body) => {
     console.log("_all_dbs:", body);
@@ -71,7 +75,7 @@ module.exports = {
         }
         try {
             await historicalTweets.insert({
-                    "views": viewJson,
+                    "views": viewJson_historical,
                     "language": "javascript"
                 },
                 '_design/filter'

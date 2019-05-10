@@ -71,7 +71,7 @@
                             <div class="stat-content">
                                 <div class="stat-text">Real Time Tweets </div>
                                 <div class="stat-digit">
-                                    <i class="fab fa-twitter"></i><%=realtimeTotalTweets%></div>
+                                    <i class="fab fa-twitter"></i><%=realtime_total_pass.count%></div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
@@ -85,7 +85,7 @@
                             <div class="stat-content">
                                 <div class="stat-text">Historical Tweets</div>
                                 <div class="stat-digit">
-                                    <i class="fab fa-twitter"></i><%=historicalTotalTweets%></div>
+                                    <i class="fab fa-twitter"></i><%=historical_totoal_pass.count%></div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
@@ -95,7 +95,23 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
+                        <p style="font-weight: bold;font-size: 24px;text-align: center;font-family: Impact, Charcoal;">
+                            The 'Gluttony' Tweets Rate in Different States
+                        </p>
+                        <p style="font-weight: bold;font-size: 14px;text-align: center;font-family: Impact, Charcoal;">
+                            In Real-time Tweets
+                        </p>
                         <div id="au-map" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="melb_chartAxes" style="height: 390px; width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="chartCities_States" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -105,12 +121,12 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
-                        <div id="barChartStates" style="height: 300px; width: 100%;"></div>
+                        <div id="aurinChart" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
-                        <div id="melb_chartAxes" style="height: 300px; width: 100%;"></div>
+                        <div id="barChartCitiesHistorical" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
                 <!-- /# column -->
@@ -142,13 +158,13 @@
 <script src="/jquery/jquery-jvectormap-au-mill.js"></script>
 <script>
     var tweetsCount = {
-        "AU-NT": <%=nt_total%>,
-        "AU-WA": <%=wa_total%>,
-        "AU-TAS": <%=tas_total%>,
-        "AU-VIC": <%=vic_total%>,
-        "AU-QLD": <%=qs_total%>,
-        "AU-SA": <%=sa_total%>,
-        "AU-NSW": <%=nsw_total%>
+        "AU-NT": <%=((realtime_token_pass.nt/realtime_total_pass.nt)*100).toFixed(2)%> +'%',
+        "AU-WA": <%=((realtime_token_pass.wa/realtime_total_pass.wa)*100).toFixed(2) %> + '%',
+        "AU-TAS": <%=((realtime_token_pass.tas/realtime_total_pass.tas)*100).toFixed(2)%> +'%',
+        "AU-VIC": <%=((realtime_token_pass.vic/realtime_total_pass.vic)*100).toFixed(2)%> +'%',
+        "AU-QLD": <%=((realtime_token_pass.qs/realtime_total_pass.qs)*100).toFixed(2)%> +'%',
+        "AU-SA": <%=((realtime_token_pass.sa/realtime_total_pass.sa)*100).toFixed(2)%> +'%',
+        "AU-NSW": <%=((realtime_token_pass.nsw/realtime_total_pass.nsw)*100).toFixed(2)%> +'%'
     };
     $('#au-map').vectorMap({
         map: 'au_mill',
@@ -170,7 +186,7 @@
     var chart = new CanvasJS.Chart("melb_chartAxes", {
         animationEnabled: true,
         title:{
-            text: "The trend of 'Fat' tweets in Melbourne"
+            text: "The trend of 'Fat' tweets in Melbourne (2014-2018)"
         },
         axisX: {
             title: "Years"
@@ -197,11 +213,11 @@
             xValueFormatString: "Year: ####",
             yValueFormatString: "#,##0 Tweets",
             dataPoints: [
-                { x: 2014,  y: <%=melb_14%> },
-                { x: 2015, y: <%=melb_15%> },
-                { x: 2016, y: <%=melb_16%>},
-                { x: 2017,  y: <%=melb_17%> },
-                { x: 2018,  y: <%=melb_18%> }
+                { x: 2014,  y: <%=melb_historical_pass.year_14%> },
+                { x: 2015, y: <%=melb_historical_pass.year_15%> },
+                { x: 2016, y: <%=melb_historical_pass.year_16%>},
+                { x: 2017,  y: <%=melb_historical_pass.year_17%> },
+                { x: 2018,  y: <%=melb_historical_pass.year_18%> }
             ]
         }]
     });
@@ -220,19 +236,93 @@
 
 </script>
 <script type="text/javascript">
+    var chart = new CanvasJS.Chart("chartCities_States", {
+        animationEnabled: true,
+        title:{
+            text: "'Gluttony' Tweets Rate in Different Cities"
+        },
+        subtitles:[{
+            text: "In Real-time Tweets"
+        }],
+        axisY: {
+            title: "Different States (%)",
+            titleFontColor: "#4F81BC",
+            lineColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC"
+        },
+        axisY2: {
+            title: "Different Cities (%)",
+            titleFontColor: "#C0504E",
+            lineColor: "#C0504E",
+            labelFontColor: "#C0504E",
+            tickColor: "#C0504E"
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor:"pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [{
+            type: "column",
+            name: "Tweets Percentage(State)",
+            legendText: "State",
+            showInLegend: true,
+            yValueFormatString: "##.### %",
+            dataPoints:[
+                { label: "VIC (Melbourne)",  y: <%=(realtime_token_pass.vic/realtime_total_pass.vic)%>},
+                { label: "NSW (Sydney)", y: <%=(realtime_token_pass.nsw/realtime_total_pass.nsw)%>},
+                { label: "SA (Adelaide)",  y: <%=(realtime_token_pass.sa/realtime_total_pass.sa)%> },
+                { label: "WA (Perth)", y: <%=(realtime_token_pass.wa/realtime_total_pass.wa)%>},
+                { label: "TAS (Hobart)", y: <%=(realtime_token_pass.tas/realtime_total_pass.tas)%>},
+            ]
+        },
+            {
+                type: "column",
+                name: "Tweets Percentage(City)",
+                legendText: "City",
+                axisYType: "secondary",
+                showInLegend: true,
+                yValueFormatString: "##.### %",
+                dataPoints:[
+                    { label: "VIC (Melbourne)", y: <%=(realtime_token_pass.mel/realtime_total_pass.mel)%>   },
+                    { label: "NSW (Sydney)",  y: <%=(realtime_token_pass.syd/realtime_total_pass.syd)%>  },
+                    { label: "SA (Adelaide)",  y: <%=(realtime_token_pass.ade/realtime_total_pass.ade)%>  },
+                    { label: "WA (Perth)", y: <%=(realtime_token_pass.per/realtime_total_pass.per)%> },
+                    { label: "TAS (Hobart)",  y: <%=(realtime_token_pass.hob/realtime_total_pass.hob)%>  }
+                ]
+            }]
+    });
+    chart.render();
+
+    function toggleDataSeries(e) {
+        if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        }
+        else {
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
+</script>
+<script type="text/javascript">
     var chartCities = new CanvasJS.Chart("barChartCities", {
         theme: "light1", // "light2", "dark1", "dark2"
-        animationEnabled: false, // change to true
+        animationEnabled: true, // change to true
         title:{
-            text: "Percentage of 'FAT' Tweets in Different Cities"
+            text: "'Gluttony' Tweets Rate in Different Cities"
         },
+        subtitles:[{
+            text: "In Real-time Tweets"
+        }],
         axisX:{
             interval: 1
         },
         axisY2:{
             interlacedColor: "rgba(1,77,101,.2)",
             gridColor: "rgba(1,77,101,.1)",
-            title: "Number of Companies"
         },
         data: [
             {
@@ -240,84 +330,89 @@
                 type: "bar",
                 color: "#014D65",
                 axisYType: "secondary",
+                yValueFormatString: "#.### %",
                 dataPoints: [
-                    { label: "Adelaide",  y: <%=ade_Pass*100%> },
-                    { label: "Brisbane", y: <%=bri_Pass*100%> },
-                    { label: "Melbourne", y: <%=mel_Pass*100 %>  },
-                    { label: "Sydney",  y: <%=syd_Pass*100 %> },
-                    { label: "Canberra", y: <%=can_Pass*100 %>  },
-                    { label: "Perth", y: <%=per_Pass*100 %>},
-                    { label: "Hobart",  y: <%=hob_Pass*100 %> }
+                    { label: "Adelaide",  y: <%=(realtime_token_pass.ade/realtime_total_pass.ade)%> },
+                    { label: "Brisbane", y: <%=(realtime_token_pass.bri/realtime_total_pass.bri)%>},
+                    { label: "Melbourne", y: <%=(realtime_token_pass.mel/realtime_total_pass.mel)%>},
+                    { label: "Sydney",  y: <%=(realtime_token_pass.syd/realtime_total_pass.syd)%>},
+                    { label: "Canberra", y: <%=(realtime_token_pass.can/realtime_total_pass.can)%>},
+                    { label: "Perth", y: <%=(realtime_token_pass.per/realtime_total_pass.per)%>},
+                    { label: "Hobart",  y: <%=(realtime_token_pass.hob/realtime_total_pass.hob)%> }
                 ]
             }
         ]
     });
     chartCities.render();
 </script>
-<script type="text/javascript">
-    var chartStates = new CanvasJS.Chart("barChartStates", {
-        theme: "light1", // "light2", "dark1", "dark2"
-        animationEnabled: false, // change to true
+<script>
+    var chart = new CanvasJS.Chart("aurinChart", {
+        animationEnabled: true,
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
         title:{
-            text: "Percentage of 'FAT' Tweets in Different States"
+            text: "AURIN: The Obese Rate in Different States"
+        },
+        subtitles:[
+            {
+                text: "PHIDU: Prevalence of Selected Health Risk Factors (2014-2015)"
+            }
+        ],
+        axisY: {
+            title: "The Obese Rate(%)"
+        },
+        data: [{
+            type: "column",
+            yValueFormatString: "##.### %",
+            dataPoints: [
+                { label:"New South Wales", y: 0.276035},
+                { label:"Victoria", y: 0.261577},
+                { label:"Queensland", y: 0.297497},
+                { label:"South Australia", y: 0.292948},
+                { label:"Western Australia", y: 0.239627},
+                { label:"Tasmania", y: 0.308272},
+                { label:"Northern Territory", y: 0.293028}
+            ]
+        }]
+    });
+    chart.render();
+</script>
+<script type="text/javascript">
+    var chartCities = new CanvasJS.Chart("barChartCitiesHistorical", {
+        theme: "light1", // "light2", "dark1", "dark2"
+        animationEnabled: true, // change to true
+        title:{
+            text: "'Gluttony' Tweets Rate in Different Cities"
+        },
+        subtitles:[{
+            text: "In Historical Tweets"
+        }],
+        axisX:{
+            interval: 1
+        },
+        axisY2:{
+            interlacedColor: "rgba(1,77,101,.2)",
+            gridColor: "rgba(1,77,101,.1)",
         },
         data: [
             {
                 // Change type to "bar", "area", "spline", "pie",etc.
-                type: "column",
+                type: "bar",
+                color: "#014D65",
+                axisYType: "secondary",
+                yValueFormatString: "##.### %",
                 dataPoints: [
-                    { label: "Victoria",  y: <%=vic_Pass*100%> },
-                    { label: "Northern Territory ", y: <%=nt_Pass*100%> },
-                    { label: "New South Wales", y: <%=nsw_Pass*100%> },
-                    { label: "Queensland", y: <%=qs_Pass*100 %>  },
-                    { label: "South Australia",  y: <%=sa_Pass*100 %> },
-                    { label: "Tasmania", y: <%=tas_Pass*100 %>  },
-                    { label: "Western Australia", y: <%=wa_Pass*100 %>}
+                    { label: "Adelaide",  y: <%=(historical_token_pass.ade/historical_totoal_pass.ade)%>  },
+                    { label: "Brisbane", y: <%=(historical_token_pass.bri/historical_totoal_pass.bri)%>  },
+                    { label: "Melbourne", y: <%=(historical_token_pass.mel/historical_totoal_pass.mel)%>   },
+                    { label: "Sydney",  y: <%=(historical_token_pass.syd/historical_totoal_pass.syd)%>  },
+                    { label: "Canberra", y: <%=(historical_token_pass.can/historical_totoal_pass.can)%>  },
+                    { label: "Perth", y: <%=(historical_token_pass.per/historical_totoal_pass.per)%> },
+                    { label: "Hobart",  y: <%=(historical_token_pass.hob/historical_totoal_pass.hob)%>  }
                 ]
             }
         ]
     });
-    chartStates.render();
-</script>
-
-<script>
-    var pieChart = new CanvasJS.Chart("pieChartContainer", {
-        exportEnabled: true,
-        animationEnabled: true,
-        title:{
-            text: "State Operating Funds"
-        },
-        legend:{
-            cursor: "pointer",
-            itemclick: explodePie
-        },
-        data: [{
-            type: "pie",
-            showInLegend: true,
-            toolTipContent: "{name}: <strong>{y}%</strong>",
-            indexLabel: "{name} - {y}%",
-            dataPoints: [
-                { y: 26, name: "School Aid", exploded: true },
-                { y: 20, name: "Medical Aid" },
-                { y: 5, name: "Debt/Capital" },
-                { y: 3, name: "Elected Officials" },
-                { y: 7, name: "University" },
-                { y: 17, name: "Executive" },
-                { y: 22, name: "Other Local Assistance"}
-            ]
-        }]
-    });
-    pieChart.render();
-
-    function explodePie (e) {
-        if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
-            e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
-        } else {
-            e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
-        }
-        e.chart.render();
-
-    }
+    chartCities.render();
 </script>
 <!-- Menu Toggle Script -->
 <script>
