@@ -239,7 +239,7 @@
     var chart = new CanvasJS.Chart("chartCities_States", {
         animationEnabled: true,
         title:{
-            text: "'Gluttony' Tweets Rate in Different Cities"
+            text: "'Gluttony' Tweets Rate in Cities and States"
         },
         subtitles:[{
             text: "In Real-time Tweets"
@@ -274,6 +274,7 @@
             dataPoints:[
                 { label: "VIC (Melbourne)",  y: <%=(realtime_token_pass.vic/realtime_total_pass.vic)%>},
                 { label: "NSW (Sydney)", y: <%=(realtime_token_pass.nsw/realtime_total_pass.nsw)%>},
+                { label: "QS (Brisbane)", y: <%=(realtime_token_pass.qs/realtime_total_pass.qs)%>},
                 { label: "SA (Adelaide)",  y: <%=(realtime_token_pass.sa/realtime_total_pass.sa)%> },
                 { label: "WA (Perth)", y: <%=(realtime_token_pass.wa/realtime_total_pass.wa)%>},
                 { label: "TAS (Hobart)", y: <%=(realtime_token_pass.tas/realtime_total_pass.tas)%>},
@@ -289,6 +290,7 @@
                 dataPoints:[
                     { label: "VIC (Melbourne)", y: <%=(realtime_token_pass.mel/realtime_total_pass.mel)%>   },
                     { label: "NSW (Sydney)",  y: <%=(realtime_token_pass.syd/realtime_total_pass.syd)%>  },
+                    { label: "QS (Brisbane)", y: <%=(realtime_token_pass.bri/realtime_total_pass.bri)%>},
                     { label: "SA (Adelaide)",  y: <%=(realtime_token_pass.ade/realtime_total_pass.ade)%>  },
                     { label: "WA (Perth)", y: <%=(realtime_token_pass.per/realtime_total_pass.per)%> },
                     { label: "TAS (Hobart)",  y: <%=(realtime_token_pass.hob/realtime_total_pass.hob)%>  }
