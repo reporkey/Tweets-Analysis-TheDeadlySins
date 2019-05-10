@@ -2,28 +2,17 @@ var options = {
 	exportEnabled: true,
 	animationEnabled: true,
 	title:{
-		text: "Units Sold VS Profit"
+		text: "The trend of 'Fat' tweets in Melbourne"
 	},
-	subtitles: [{
-		text: "Click Legend to Hide or Unhide Data Series"
-	}],
 	axisX: {
-		title: "States"
+		title: "Years"
 	},
 	axisY: {
-		title: "Units Sold",
+		title: "Tweets Amount",
 		titleFontColor: "#4F81BC",
 		lineColor: "#4F81BC",
 		labelFontColor: "#4F81BC",
 		tickColor: "#4F81BC",
-		includeZero: false
-	},
-	axisY2: {
-		title: "Profit in USD",
-		titleFontColor: "#C0504E",
-		lineColor: "#C0504E",
-		labelFontColor: "#C0504E",
-		tickColor: "#C0504E",
 		includeZero: false
 	},
 	toolTip: {
@@ -35,45 +24,16 @@ var options = {
 	},
 	data: [{
 		type: "spline",
-		name: "Units Sold",
+		name: "Tweets Count",
 		showInLegend: true,
-		xValueFormatString: "MMM YYYY",
-		yValueFormatString: "#,##0 Units",
+		xValueFormatString: "YYYY",
+		yValueFormatString: "#,##0 Tweets",
 		dataPoints: [
-			{ x: new Date(2016, 0, 1),  y: 120 },
-			{ x: new Date(2016, 1, 1), y: 135 },
-			{ x: new Date(2016, 2, 1), y: 144 },
-			{ x: new Date(2016, 3, 1),  y: 103 },
-			{ x: new Date(2016, 4, 1),  y: 93 },
-			{ x: new Date(2016, 5, 1),  y: 129 },
-			{ x: new Date(2016, 6, 1), y: 143 },
-			{ x: new Date(2016, 7, 1), y: 156 },
-			{ x: new Date(2016, 8, 1),  y: 122 },
-			{ x: new Date(2016, 9, 1),  y: 106 },
-			{ x: new Date(2016, 10, 1),  y: 137 },
-			{ x: new Date(2016, 11, 1), y: 142 }
-		]
-	},
-	{
-		type: "spline",
-		name: "Profit",
-		axisYType: "secondary",
-		showInLegend: true,
-		xValueFormatString: "MMM YYYY",
-		yValueFormatString: "$#,##0.#",
-		dataPoints: [
-			{ x: new Date(2016, 0, 1),  y: 19034.5 },
-			{ x: new Date(2016, 1, 1), y: 20015 },
-			{ x: new Date(2016, 2, 1), y: 27342 },
-			{ x: new Date(2016, 3, 1),  y: 20088 },
-			{ x: new Date(2016, 4, 1),  y: 20234 },
-			{ x: new Date(2016, 5, 1),  y: 29034 },
-			{ x: new Date(2016, 6, 1), y: 30487 },
-			{ x: new Date(2016, 7, 1), y: 32523 },
-			{ x: new Date(2016, 8, 1),  y: 20234 },
-			{ x: new Date(2016, 9, 1),  y: 27234 },
-			{ x: new Date(2016, 10, 1),  y: 33548 },
-			{ x: new Date(2016, 11, 1), y: 32534 }
+			{ x: new Date(2014),  y: 120 },
+			{ x: new Date(2015), y: 135 },
+			{ x: new Date(2016), y: 144 },
+			{ x: new Date(2017),  y: 103 },
+			{ x: new Date(2018),  y: 93 }
 		]
 	}]
 };

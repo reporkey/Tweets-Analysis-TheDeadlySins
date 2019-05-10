@@ -12,12 +12,21 @@
   /*background-color: RoyalBlue;*/
   color:RoyalBlue;
 }
-.fa-home {
-  color: RoyalBlue;
+.bg-image{
+  background-color: #041617 !important;
 }
-.fa-chart-bar{
-  color:green;
-}
+/*.fa-bars{*/
+/*  color: white;*/
+/*}*/
+/*.fa-chevron-down{*/
+/*  color: white;*/
+/*}*/
+/*.fa-home {*/
+/*  color: RoyalBlue;*/
+/*}*/
+/*.fa-chart-bar{*/
+/*  color:green;*/
+/*}*/
 .fa-youtube{
   color:red;
 }

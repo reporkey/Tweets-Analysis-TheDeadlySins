@@ -2,14 +2,16 @@ require("async");
 const db = require("./couchDB");
 
 module.exports = {
-    indexPage: function (req, res) {
+    dashBoardPage: function (req, res) {
         let result = db.getResult();
+        console.log(result)
         let token = result.realtime.token;
         let total = result.realtime.total;
+        let hisMelb = result.historical_melb.token;
         console.log(result);
-        res.render('index', {
-            historicalTotalTweets: result.historical.total.count,
-            realtimeTotalTweets: result.realtime.total.count,
+        res.render('dashboard', {
+            historicalTotalTweets: result.historical.token.count,
+            realtimeTotalTweets: total.count,
             ade_Pass: token.ade / total.ade,
             bri_Pass: token.bri / total.bri,
             mel_Pass: token.mel / total.mel,
@@ -19,6 +21,7 @@ module.exports = {
             hob_Pass: token.hob / total.hob,
             vic_Pass: token.vic / total.vic,
             nsw_Pass: token.nsw / total.nsw,
+            nt_Pass: token.nt / total.nt,
             qs_Pass: token.qs / total.qs,
             wa_Pass: token.wa / total.wa,
             tas_Pass: token.tas / total.tas,
@@ -35,8 +38,17 @@ module.exports = {
             qs_total: total.qs,
             wa_total: total.wa,
             tas_total: total.tas,
-            sa_total: total.sa
+            sa_total: total.sa,
+            nt_total: total.nt,
+            melb_14: hisMelb.year_14,
+            melb_15: hisMelb.year_15,
+            melb_16: hisMelb.year_16,
+            melb_17: hisMelb.year_17,
+            melb_18: hisMelb.year_18
         })
+    },
+    introPage:function (req,res) {
+        res.render('intro');
     }
 };
 
