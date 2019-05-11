@@ -17,12 +17,12 @@
     src: /dev/vdb
     fstype: ext4
     state: mounted
+# No sure how to run crawler.py
+# - name: Copy crawler.py 
+#   copy: 
+#     src: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/TwitterCrawler/tweetsCrawler.py
+#     dest: /home/ubuntu/
 
-- name: Copy crawler.py 
-  copy: 
-    src: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/TwitterCrawler/tweetsCrawler.py
-    dest: /home/ubuntu/
-
-- name: Run crawler.py
-  become: yes
-  command: docker run --name tweetsdata -p 5984:5984 -v /data:/opt/couchdb/data -d couchdb:2.3.0
+# - name: Run crawler.py
+#   become: yes
+#   command: docker run --name tweetsdata -p 5984:5984 -v /data:/opt/couchdb/data -d couchdb:2.3.0
