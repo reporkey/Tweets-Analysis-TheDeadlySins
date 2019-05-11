@@ -9,13 +9,17 @@
     security_groups: '{{ sg_names}}'
     # No need to create volume and attatch it now...
 
-    # volumes: '{{ os_vol_ids}}'
+    volumes: '{{volumes[in_index].vol_name}}'
     auto_floating_ip: yes
     wait: yes
     timeout: 600
     state: present
   register: os_instance 
   loop: "{{instance_name}}"
+  loop_control:
+    index_var: in_index
+- name: debug
+  debug: var=volumes
 
 
 

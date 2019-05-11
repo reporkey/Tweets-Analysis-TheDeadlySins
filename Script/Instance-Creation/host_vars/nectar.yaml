@@ -4,13 +4,12 @@ availability_zone: melbourne-qh2-uom
 # Volume
 volumes: 
   - vol_name: test-vol-1
-    vol_size: 10
+    # vol_size: 10
   - vol_name: test-vol-2
-    vol_size: 10
-  - vol_name: Automation-attatch
-    vol_size: 1
-    id: 6c4be53a-d610-4e46-b6e7-52e252097750
-existing_volume: Automation-attatch
+    # vol_size: 10
+  # - vol_name: Automation-attatch
+    # vol_size: 1
+#     id: 6c4be53a-d610-4e46-b6e7-52e252097750
  
 # Security Groups
 
@@ -50,10 +49,13 @@ security_groups:
 
 # Instance
 instance_name: 
-  - Automation_instance1
-  - Automation_instance2
+  - Dbserver # Database - needs mount volume
+  - Webserver # Webserver 
+# Possible instance for crawler server. 
+# - 
 # 我服了 5月8号上午11点更新了id,image找不到了. 
-instance_image: 37788d15-12bd-488c-b15e-903d43eae051
+# 又更新了id..
+instance_image: afccf48a-9426-4618-86dc-0ceb636f0169
 instance_key_name: tesft2
 instance_flavor: uom.mse.2c9g
 
@@ -68,5 +70,7 @@ proxy_rule:
   - 'echo no_proxy=localhost,127.0.0.1,127.0.1.1,ubuntu >> /etc/environment'
 
 # config_docker:
+
+github_url: https://github.com/reporkey/CCC_ASS2-TheDeadlySins
   
     

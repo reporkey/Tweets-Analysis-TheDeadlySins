@@ -13,7 +13,6 @@
 
 - debug:
     msg: "Security group(S) {{ sg_names }} have been created"
-# 这里对于ICMP来说可能是一个风险..因为ICMP并没有define ports,我不知道这里会不会导致无法使用..
 # - name: Create security group rules SSH and HTTP
 #   os_security_group_rule: 
 #     security_group: '{{ item.name}}'
