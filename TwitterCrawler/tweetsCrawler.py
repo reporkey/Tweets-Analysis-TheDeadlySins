@@ -36,7 +36,6 @@ class CouchDBStreamListener(tweepy.StreamListener):
 
     def on_data(self, data):
         jdata = self.json.loads(data)
-        print(data)
         self.db.save(jdata)
 
     def on_error(self, status):
