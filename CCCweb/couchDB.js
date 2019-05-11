@@ -22,7 +22,7 @@ nano.db.list().then((body) => {
 
 const designDocName = "filter";
 const realtimeTweets = nano.use("realtime_tweets");
-const historicalTweets = nano.use("historical_tweets");
+const historicalTweets = nano.use("historical_tweets_1415");
 const historicalTweets_melb = nano.use("historical_tweets_melb");
 
 let result = {

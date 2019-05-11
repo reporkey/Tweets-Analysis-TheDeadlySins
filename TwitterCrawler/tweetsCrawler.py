@@ -1,7 +1,9 @@
 import tweepy
 import couchdb
 import twitter_credentials
+import sys
 
+ip = sys.argv[1]
 dbname = "realtime_tweets"
 
 class TwitterStreamer:
@@ -25,7 +27,7 @@ class CouchDBStreamListener(tweepy.StreamListener):
     def __init__(self):
         pass
         self.json = tweepy.utils.import_simplejson()
-        couch_server = couchdb.Server("http://127.0.0.1:5984/")
+        couch_server = couchdb.Server("http://"+ip+":5984/")
 
         if dbname in couch_server:
             self.db = couch_server[dbname]
@@ -34,7 +36,6 @@ class CouchDBStreamListener(tweepy.StreamListener):
 
     def on_data(self, data):
         jdata = self.json.loads(data)
-        print(data)
         self.db.save(jdata)
 
     def on_error(self, status):
