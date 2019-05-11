@@ -3,9 +3,11 @@ availability_zone: melbourne-qh2-uom
 
 # Volume
 volumes: 
+  - vol_name: Testdb
   - vol_name: test-vol-1
     # vol_size: 10
   - vol_name: test-vol-2
+
     # vol_size: 10
   # - vol_name: Automation-attatch
     # vol_size: 1
@@ -23,6 +25,8 @@ security_groups:
   - name: ssh
   - name: http
   - name: ICMP
+  - name: '3000'
+  - name: '5984'
   # Need to be testedd later in the script. 
   # I am curious about why the impementation is not working as expected?????
   # Both SSH and ICMP is working as expected during the process of making the instanecs availabe. I think this is the potential risk of modifying the 
@@ -50,7 +54,8 @@ security_groups:
 # Instance
 instance_name: 
   - Dbserver # Database - needs mount volume
-  - Webserver # Webserver 
+  - Crawler-server # Webserver 
+  - Webserver
 # Possible instance for crawler server. 
 # - 
 # 我服了 5月8号上午11点更新了id,image找不到了. 

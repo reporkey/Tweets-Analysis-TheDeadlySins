@@ -12,3 +12,4 @@ sleep 5
 sudo systemctl daemon-reload && sudo systemctl restart docker
 sleep 20
 sudo docker pull couchdb:2.3.0
+sudo docker run --name tweetsdata -p 5984:5984 -v /data:/opt/couchdb/data -d couchdb:2.3.0

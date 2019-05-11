@@ -1,0 +1,4 @@
+---
+- name: Git clone
+  become: yes
+  command: git clone https://'{{username}}':'{{password}}'@github.com/reporkey/CCC_ASS2-TheDeadlySins

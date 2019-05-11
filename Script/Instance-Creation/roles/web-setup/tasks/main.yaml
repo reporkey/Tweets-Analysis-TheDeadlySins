@@ -1,9 +1,5 @@
 ---
 # This is for git private setting etc. 
-- name: Git clone
-  become: yes
-  command: git clone https://'{{username}}':'{{password}}'@github.com/reporkey/CCC_ASS2-TheDeadlySins
-
 - name: Install npm
   become: yes
   apt: 
@@ -13,8 +9,11 @@
   copy: 
     src: front-end.sh
     dest: /home/ubuntu
-- name: Pause
-  pause: 
-    seconds: 10
+
+# - name: Pause
+#   pause: 
+#     seconds: 10
 - name: Run front-end script
-  become: bash /home/ubuntu/front-end.sh
+  become: yes
+  command: bash /home/ubuntu/front-end.sh
+  

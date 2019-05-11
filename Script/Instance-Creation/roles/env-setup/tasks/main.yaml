@@ -36,28 +36,17 @@
     name: openstacksdk
     state: latest
 
-- name: Install vim, git and docker.io
+- name: Install vim, git
   become: yes
   apt:   
     name: '{{item}}'
   loop:
     - "git"
-    - "docker.io"
     - "vim"
 
 # - name: Configure docker internet setup
 #   become: yes
 #   command: mkdir /home/ubuntu/scripts
-
-- name: Configuure docker internet setup
-  become: yes
-  copy: 
-    src: docker-setup.sh
-    dest: /home/ubuntu/
-
-- name: Configure docker internet setup, pull couchdb.2.3.0
-  become: yes
-  command: bash /home/ubuntu/docker-setup.sh
 
 
 # 或许这一步可以放到docker image里面?????

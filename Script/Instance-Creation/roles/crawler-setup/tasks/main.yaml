@@ -4,6 +4,6 @@
   copy: 
     src: crawler-setup.sh 
     dest: /home/ubuntu/
-- name: Install tweepy
+- name: Install tweepy and run crawler.py
   become: yes
-  command: bash /home/ubuntu/crawler-setup.sh
+  command: bash /home/ubuntu/crawler-setup.sh '{{hostvars['localhost']['ip_facts'][0].address}}'

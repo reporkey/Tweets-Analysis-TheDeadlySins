@@ -42,8 +42,12 @@
         ansible_host={{ip_facts[0].address}}
     - name: Add dynamic hosts into inventory
       add_host: >
-        name=webserver groups=webservers >
+        name=crawler-server groups=crawler-servers >
         ansible_host={{ip_facts[1].address}}
+    - name: Add dynamic hosts into inventory
+      add_host: >
+        name=webserver groups=webservers >
+        ansible_host={{ip_facts[2].address}}
 
     # - name: debug attaching. 
     - name: Gather server facts. 
@@ -58,17 +62,29 @@
 - hosts: dbserver
   vars_files:
     - host_vars/nectar.yaml
+    - host_vars/github.yaml
   roles: 
     - role: env-setup
+    - role: docker-setup
     - role: disk-mount
 
 
-- hosts: webserver
+- hosts: crawler-server
   vars_files:
     - host_vars/nectar.yaml
     - host_vars/github.yaml
   roles: 
     - role: env-setup
+    - role: git-setup
     - role: crawler-setup
+    
+- hosts: webserver
+  vars_files: 
+    - host_vars/nectar.yaml
+    - host_vars/github.yaml
+  roles:
+    - role: env-setup
+    - role: git-setup
     - role: web-setup
+
     

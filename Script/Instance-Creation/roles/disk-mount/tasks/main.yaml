@@ -1,22 +1,24 @@
-- name: Format Volume
-  become: yes
-  filesystem:
-    fstype: ext4
-    dev: /dev/vdb
+# - name: Format Volume
+#   become: yes
+#   filesystem:
+#     fstype: ext4
+#     dev: /dev/vdb
 
-- name: Creatd Mount Directory
-  become: yes
-  file: 
-    path: /data
-    state: directory
+# - name: Creatd Mount Directory
+#   become: yes
+#   file: 
+#     path: /data
+#     state: directory
 
-- name: Mount Volume
-  become: yes
-  mount: 
-    path: /data
-    src: /dev/vdb
-    fstype: ext4
-    state: mounted
+# - name: Mount Volume
+#   become: yes
+#   mount: 
+#     path: /data
+#     src: /dev/vdb
+#     fstype: ext4
+#     state: mounted
+
+    
 # No sure how to run crawler.py
 # - name: Copy crawler.py 
 #   copy: 

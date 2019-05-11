@@ -1,7 +1,7 @@
 ---
 - name: Create an instance
   os_server: 
-    name: '{{ item}}'
+    name: '{{item}}'
     image: '{{ instance_image}}'
     key_name: '{{ instance_key_name}}'
     flavor: '{{instance_flavor}}'
@@ -18,6 +18,7 @@
   loop: "{{instance_name}}"
   loop_control:
     index_var: in_index
+
 - name: debug
   debug: var=volumes
 
