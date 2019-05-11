@@ -7,12 +7,13 @@
   roles:
     - role: common
     - role: images
-    - role: volume
+    # - role: volume
     - role: security-groups
     - role: instance
-    - role: snapshot
+    # - role: snapshot
+    # - role: attach-volume
   tasks: 
-    - name: Grap the ip addresses from new-built instances
+    - name: Grab the ip addresses from new-built instances
       set_fact:
         ip_facts: "{{ip_facts|default([]) + [{'name': item.openstack.name, 'address': item.openstack.public_v4}]}}"
       loop: '{{ os_instance.results}}'
@@ -43,45 +44,31 @@
       add_host: >
         name=webserver groups=webservers >
         ansible_host={{ip_facts[1].address}}
-    - name: Attach
-      os_server_volume:
-        state: present
-        server: dbserver
-        volume: Automation-attatch
-        device: /dev/vdb
 
+    # - name: debug attaching. 
+    - name: Gather server facts. 
+      os_server_facts:
+        server: web*
+    - debug: var=openstack_servers
 
-# - name: Attach volume
-#   hosts: localhost
-#   vars_files:
-#     - host_vars/nectar.yaml
-  # tasks: 
-  # - name: Attach
-  #   os_server_volume:
-  #     state: present
-  #     server: dbserver
-  #     volume: Automation-attatch
-  #     device: /dev/vdb
-  
-# The importing of the playbook Set-Common-Env is working as Expected. 
-# However, This playbook causes trouble: 
-# 1. When trying to get the dynamic ip addres of the newly created instances, 
-# It seems that it would be hard to modify the local /Set-Common-Env/hosts file. This modification is feasible though(I mean through t)
+    # - debug: var=Automation-attatch
+      # debug: var={{ hostvars['dbserver']['ansible_facts']}}
 
-# - import_playbook: /Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/Set-Common-Env/set-env.yaml
-
-# This should be fixed. 
+###### Now built up remote server environment. 
 - hosts: dbserver
   vars_files:
     - host_vars/nectar.yaml
   roles: 
     - role: env-setup
+    - role: disk-mount
 
 
 - hosts: webserver
   vars_files:
     - host_vars/nectar.yaml
+    - host_vars/github.yaml
   roles: 
     - role: env-setup
     - role: crawler-setup
+    - role: web-setup
     

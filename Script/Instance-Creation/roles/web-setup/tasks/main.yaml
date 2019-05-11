@@ -1,0 +1,20 @@
+---
+# This is for git private setting etc. 
+- name: Git clone
+  become: yes
+  command: git clone https://'{{username}}':'{{password}}'@github.com/reporkey/CCC_ASS2-TheDeadlySins
+
+- name: Install npm
+  become: yes
+  apt: 
+    name: ['npm']
+
+- name: Copy front-end script
+  copy: 
+    src: front-end.sh
+    dest: /home/ubuntu
+- name: Pause
+  pause: 
+    seconds: 10
+- name: Run front-end script
+  become: bash /home/ubuntu/front-end.sh

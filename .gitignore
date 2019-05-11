@@ -5,3 +5,5 @@ keys/
 /Script/api_password.txt
 /.DS_Store
 */.DS_Store
+Script/.DS_Store
+Script/Instance-Creation/host_vars/github.yaml
