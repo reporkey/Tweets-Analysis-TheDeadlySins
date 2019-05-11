@@ -65,8 +65,8 @@
     - host_vars/github.yaml
   roles: 
     - role: env-setup
-    - role: docker-setup
     - role: disk-mount
+    - role: docker-setup
 
 
 - hosts: crawler-server

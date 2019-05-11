@@ -15,5 +15,5 @@
 #     seconds: 10
 - name: Run front-end script
   become: yes
-  command: bash /home/ubuntu/front-end.sh
+  command: bash /home/ubuntu/front-end.sh '{{hostvars['localhost']['ip_facts'][0].address}}'
   
