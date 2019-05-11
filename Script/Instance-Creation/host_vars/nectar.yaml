@@ -3,7 +3,7 @@ availability_zone: melbourne-qh2-uom
 
 # Volume
 volumes: 
-  - vol_name: Testdb
+  - vol_name: Tweets
   - vol_name: test-vol-1
     # vol_size: 10
   - vol_name: test-vol-2

@@ -59,24 +59,25 @@
       # debug: var={{ hostvars['dbserver']['ansible_facts']}}
 
 ###### Now built up remote server environment. 
-- hosts: dbserver
-  vars_files:
-    - host_vars/nectar.yaml
-    - host_vars/github.yaml
-  roles: 
-    - role: env-setup
-    - role: disk-mount
-    - role: docker-setup
+
+# - hosts: dbserver
+#   vars_files:
+#     - host_vars/nectar.yaml
+#     - host_vars/github.yaml
+#   roles: 
+#     - role: env-setup
+#     - role: disk-mount
+#     - role: docker-setup
 
 
-- hosts: crawler-server
-  vars_files:
-    - host_vars/nectar.yaml
-    - host_vars/github.yaml
-  roles: 
-    - role: env-setup
-    - role: git-setup
-    - role: crawler-setup
+# - hosts: crawler-server
+#   vars_files:
+#     - host_vars/nectar.yaml
+#     - host_vars/github.yaml
+#   roles: 
+#     - role: env-setup
+#     - role: git-setup
+#     - role: crawler-setup
     
 - hosts: webserver
   vars_files: 
