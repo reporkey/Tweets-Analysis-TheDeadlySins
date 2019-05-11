@@ -1,4 +1,5 @@
-const nano = require('nano')('http://172.26.38.46:5984');
+const dbIP = process.argv[2];
+const nano = require('nano')('http://'+dbIP+':5984');
 const fs = require('fs');
 require("async");
 const utilities = require("./utilities");

@@ -5,6 +5,9 @@ const router = require("./router");
 const PORT = process.env.PORT || 3000;
 app = express();
 
+//
+// const dbIP = process.argv[2];
+
 // init db: create view and run once (async)
 const db = require("./couchDB");
 db.creatView();
