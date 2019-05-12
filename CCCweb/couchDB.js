@@ -29,7 +29,7 @@ const historicalTweets_melb = nano.use("historical_tweets_melb");
 let result = {
     "realtime": { "token": null, "total": null,},
     "historical": { "token": null, "total": null},
-    "historical_melb" : {"token": null}
+    "historical_melb" : {"token": null, "total": null}
 };
 
 async function filterToken(db) {
@@ -47,10 +47,10 @@ function refreshReduce() {
     Promise.all([
         filterToken(historicalTweets), filterTotal(historicalTweets),
         filterToken(realtimeTweets), filterTotal(realtimeTweets),
-        filterToken(historicalTweets_melb)
-    ]).then(([newHistoricalToken, newHistoricalTotal, newRealtimeToken, newRealtimeTotal,newHistoricalMelbToken]) => {
+        filterToken(historicalTweets_melb),filterTotal(historicalTweets_melb)
+    ]).then(([newHistoricalToken, newHistoricalTotal, newRealtimeToken, newRealtimeTotal,newHistoricalMelbToken,newHistoricalMelbTotal]) => {
         result.historical_melb.token = newHistoricalMelbToken;
-        //result.historical_melb.total = newHistoricalMelbTotal;
+        result.historical_melb.total = newHistoricalMelbTotal;
         result.historical.token = newHistoricalToken;
         result.historical.total = newHistoricalTotal;
         //result.historical.dbInfo = newHistoricalDbInfo;
@@ -72,6 +72,7 @@ module.exports = {
                 '_design/filter'
             )
         } catch(err) {
+            //console.log(err)
             console.log("Realtime view document is existed.");
         }
         try {
@@ -101,6 +102,7 @@ module.exports = {
         result.realtime.total = await filterTotal(realtimeTweets);
         //result.realtime.dbInfo = await dbInfo(realtime);
         result.historical_melb.token = await filterToken(historicalTweets_melb);
+        result.historical_melb.total = await filterTotal(historicalTweets_melb);
         console.log("Couchdb init success.");
         refreshReduce();
     },

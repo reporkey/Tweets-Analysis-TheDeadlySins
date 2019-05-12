@@ -13,7 +13,8 @@ module.exports = {
             //historicalTotalTweets: result.historical.token.count,
             realtime_token_pass: token_realtime,
             realtime_total_pass: total_realtime,
-            melb_historical_pass: hisMelb,
+            melb_historical_token: result.historical_melb.token,
+            melb_historical_total: result.historical_melb.total,
             historical_token_pass: result.historical.token,
             historical_totoal_pass: result.historical.total
         })

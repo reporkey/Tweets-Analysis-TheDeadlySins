@@ -124,6 +124,11 @@
                         <div id="comparingDataChart" style="height: 330px; width: 100%;"></div>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div id="melb_chartAxes" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
                 <!-- /# column -->
             </div>
         </div>
@@ -151,6 +156,62 @@
 
 <!--- World SVG Path Info file in jVectorMap supported format-->
 <script src="/jquery/jquery-jvectormap-au-mill.js"></script>
+<script>
+    var chart = new CanvasJS.Chart("melb_chartAxes", {
+        animationEnabled: true,
+        title:{
+            text: "The trend of 'Fat' tweets in Melbourne (2014-2018)"
+        },
+        axisX: {
+            title: "Years"
+        },
+        axisY: {
+            title: "Tweets Amount",
+            titleFontColor: "#4F81BC",
+            lineColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            includeZero: false
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [{
+            type: "spline",
+            name: "Tweets Percentage",
+            showInLegend: true,
+            indexLabel: "{y}",
+            indexLabelFontColor: "#000000",
+            indexLabelPlacement: "inside",
+            xValueFormatString: "Year: ####",
+            yValueFormatString: "#.##0 %",
+            dataPoints: [
+                { x: 2014,  y: <%= melb_historical_token.year_14/melb_historical_total.year_14 %> },
+                { x: 2015, y: <%= melb_historical_token.year_15/melb_historical_total.year_15 %> },
+                { x: 2016, y: <%= melb_historical_token.year_16/melb_historical_total.year_16 %>},
+                { x: 2017,  y: <%= melb_historical_token.year_17/melb_historical_total.year_17 %> },
+                { x: 2018,  y: <%= melb_historical_token.year_18/melb_historical_total.year_18 %> }
+            ]
+        }]
+    });
+    chart.render();
+
+    function toggleDataSeries(e){
+        if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        }
+        else{
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
+
+
+</script>
 <script>
     var tweetsCount = {
         "AU-NT": <%= ((realtime_token_pass.nt / realtime_total_pass.nt) * 100).toFixed(2) %> +'%',
