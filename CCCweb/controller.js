@@ -7,7 +7,6 @@ module.exports = {
         console.log(result)
         let token_realtime = result.realtime.token;
         let total_realtime = result.realtime.total;
-        let hisMelb = result.historical_melb.token;
         console.log(result);
         res.render('dashboard', {
             //historicalTotalTweets: result.historical.token.count,
