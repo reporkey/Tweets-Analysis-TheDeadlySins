@@ -12,8 +12,8 @@ To use the application and deploy the system that we built, ensure that you have
 
 
 ```
-To run the program, simply enter . [Your openstack src file]; ansible-playbook --ask-become-pass -i [Your hosts file] [Your Ansible Playbook]<br>
-OR followe the template provided under Script/ <br>
+To run the program, Run: ". [Your openstack src file]; ansible-playbook --ask-become-pass -i [Your hosts file] [Your Ansible Playbook] "
+OR followe the template provided under Script/ 
 and enter bash run-nectar.sh (with your variables replaced) 
 ```
 
