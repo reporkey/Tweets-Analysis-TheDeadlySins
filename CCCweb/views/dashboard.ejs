@@ -159,6 +159,7 @@
 <script>
     var chart = new CanvasJS.Chart("melb_chartAxes", {
         animationEnabled: true,
+        exportEnabled: true,
         title:{
             text: "The trend of 'Fat' tweets in Melbourne (2014-2018)"
         },
@@ -242,6 +243,7 @@
 <script type="text/javascript">
     var chart = new CanvasJS.Chart("chartCities_Remotes", {
         animationEnabled: true,
+        exportEnabled: true,
         title: {
             text: "Tweets Count in Metropolitan and Remote Areas"
         },
@@ -313,8 +315,9 @@
     var chartCities = new CanvasJS.Chart("barChartCities", {
         theme: "light1", // "light2", "dark1", "dark2"
         animationEnabled: true, // change to true
+        exportEnabled: true,
         title: {
-            text: "'Gluttony' Tweets Rate in Different Cities"
+            text: "'Fat' Tweets Rate in Different Cities"
         },
         subtitles: [{
             text: "In Real-time Tweets"
@@ -353,6 +356,7 @@
 <script>
     var chart = new CanvasJS.Chart("aurinChart", {
         animationEnabled: true,
+        exportEnabled: true,
         theme: "light2", // "light1", "light2", "dark1", "dark2"
         title: {
             text: "AURIN: The Obese Rate in Different Cities"
@@ -386,9 +390,10 @@
 <script>
     var chart = new CanvasJS.Chart("barChartCitiesHistorical", {
         animationEnabled: true,
+        exportEnabled: true,
         theme: "light2", // "light1", "light2", "dark1", "dark2"
         title: {
-            text: "'Gluttony' Tweets Rate in Different Cities"
+            text: "'Fat' Tweets Rate in Different Cities"
         },
         subtitles: [
             {
@@ -419,6 +424,7 @@
 <script type="text/javascript">
     var chart = new CanvasJS.Chart("comparingDataChart", {
         animationEnabled: true,
+        exportEnabled: true,
         title: {
             text: "Comparing Twitter data with AURIN"
         },
