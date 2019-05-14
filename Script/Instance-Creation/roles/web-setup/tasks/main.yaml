@@ -10,13 +10,6 @@
     src: front-end.sh
     dest: /home/ubuntu
 
-# - name: Install pm2
-#   npm: name=pm2 global=yes production=yes
-
-
-# - name: Debug
-#   debug: 
-#     msg: "IP: '{{hostvars['localhost']['ip_facts'][0].address}}' "
 
 
 - name: Run front-end script
@@ -24,21 +17,6 @@
   command: bash /home/ubuntu/front-end.sh '{{hostvars['localhost']['ip_facts'][0].address}}'
   register: output
 
-
-# - name: Debug
-#   debug: var=output
-
-
-# - name: cd 
-#   command: chdir=/home/ubuntu/CCC_ASS2-TheDeadlySins/CCCweb/
-
-# - name: Start App
-#   sudo_user: ubuntu
-#   command: pm2 start /home/ubuntu/CCC_ASS2-TheDeadlySins/CCCweb/app.js -- '{{hostvars['localhost']['ip_facts'][0].address}}'
-
-# - name: Pause
-#   pause: 
-#     seconds: 10
 
 
   

@@ -7,11 +7,9 @@
   roles:
     - role: common
     - role: images
-    # - role: volume
     - role: security-groups
     - role: instance
-    # - role: snapshot
-    # - role: attach-volume
+
   tasks: 
     - name: Grab the ip addresses from new-built instances
       set_fact:
@@ -22,20 +20,11 @@
     # - debug: var=
 
 
-    # - name: Store dynamic ip into local storage.
-    #   copy: content="{{item.address}}" dest=/Users/Apple/Documents/Google-Sync/Cluster-and-Cloud-Computing/Project2/Script/test_ip.txt
-    #   loop: '{{ip_facts}}'
     - name: Pause and wait for instance creation 
       pause: 
         seconds: 90
 
-    # - name: Wait for SSH connection to instances
-    #   command: >
-    #     ssh ubuntu@'{{item.address}}'
-    #   loop: '{{ip_facts}}'
-    #   loop_control:
-    #     index_var: ins_index
-
+    # From ip_facts, build a dynamic host in memory. 
     - name: Add dynamic hosts into inventory
       add_host: >
         name=dbserver groups=dbservers >
@@ -58,26 +47,26 @@
     # - debug: var=Automation-attatch
       # debug: var={{ hostvars['dbserver']['ansible_facts']}}
 
-###### Now built up remote server environment. 
+#Now build up remote server environment. 
 
-# - hosts: dbserver
-#   vars_files:
-#     - host_vars/nectar.yaml
-#     - host_vars/github.yaml
-#   roles: 
-#     - role: env-setup
-#     - role: disk-mount
-#     - role: docker-setup
+- hosts: dbserver
+  vars_files:
+    - host_vars/nectar.yaml
+    - host_vars/github.yaml
+  roles: 
+    - role: env-setup
+    - role: disk-mount
+    - role: docker-setup
 
 
-# - hosts: crawler-server
-#   vars_files:
-#     - host_vars/nectar.yaml
-#     - host_vars/github.yaml
-#   roles: 
-#     - role: env-setup
-#     - role: git-setup
-#     - role: crawler-setup
+- hosts: crawler-server
+  vars_files:
+    - host_vars/nectar.yaml
+    - host_vars/github.yaml
+  roles: 
+    - role: env-setup
+    - role: git-setup
+    - role: crawler-setup
     
 - hosts: webserver
   vars_files: 
