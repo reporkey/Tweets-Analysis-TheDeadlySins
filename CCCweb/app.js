@@ -1,3 +1,13 @@
+// COMP900024 Cluster and Cloud Computing
+// Assignment 2
+// Author: Group 3
+// Team Member :
+//     JINGLING ZHOU 888137
+//     XIAOYUE MA 878899
+//     CHENGENG LIU 813174
+//     YUNXUE CHEN 905136
+//     ZICHUN ZHU 784145
+
 const express  = require('express');
 const bodyParser   = require('body-parser');
 const path = require('path');
