@@ -1,3 +1,12 @@
+# Project 2 for COMP90024 Cluster and Cloud Computing
+# Team 3 
+# Melbounrne
+# Team Members and Student IDs
+# Jingling Zhou 888137
+# Xiaoyue Ma 878899
+# Chengeng Liu 813174
+# Yunxue Chen 905136
+# Zichun Zhu 784145
 ---
 - name: Create an instance
   os_server: 
@@ -7,7 +16,6 @@
     flavor: '{{instance_flavor}}'
     availability_zone: '{{ availability_zone}}'
     security_groups: '{{ sg_names}}'
-    # No need to create volume and attatch it now...
 
     volumes: '{{volumes[in_index].vol_name}}'
     auto_floating_ip: yes

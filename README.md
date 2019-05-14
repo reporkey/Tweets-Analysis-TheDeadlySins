@@ -1,6 +1,15 @@
 # COMP90024 Cluser and Cloud Computing Project 2 Team #3
 The aim of the project is to determine the 'Gluttony' tweets in australia, and we will compute the distribution among sevral metropolis and different states by anlyzing thoes tweets. We can prove our hypothesis by comparing the statistic of Aurin.<br>
 
+# Team Member 
+This project is developed by Group 3.<br>
+Jingling Zhou 888137<br>
+Xiaoyue Ma 878899<br>
+Chengeng Liu 813174<br>
+Yunxue Chen 905136<br>
+Zichun Zhu 784145<br>
+
+
 ## Deployment 
 Ansible is an open source automation tool and widely used in the area of configuration management and application deployment. In this project, we adopted ansible, bash script and docker as our configuration management tools. <br>
 To use the application and deploy the system that we built, ensure that you have the following environment set up already: <br>
