@@ -7,3 +7,4 @@ keys/
 */.DS_Store
 Script/.DS_Store
 Script/Instance-Creation/host_vars/github.yaml
+*/twitter_credentials.py
